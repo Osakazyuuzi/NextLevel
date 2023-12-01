@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{6595b2ba-03c8-4a0c-9829-68c82a57f130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{dd1dbf47-4f85-4f50-bb95-df81d15811eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\graphics">
+      <UniqueIdentifier>{a84b08df-b2df-4687-9b99-07e59daf5c01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\input">
+      <UniqueIdentifier>{074c493a-bd9e-43e7-bb73-89ec798840d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\audio">
+      <UniqueIdentifier>{7ca20beb-ea4b-4f18-b8dc-b5e296c0cb00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utility">
+      <UniqueIdentifier>{c5226dba-06e6-447c-98e5-6037141cc990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party">
+      <UniqueIdentifier>{6af3e671-6f86-41d5-a48d-3a9440d21db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\ImGui">
+      <UniqueIdentifier>{5bdb35f8-8f8f-46a3-9a7d-5f1fd72fc5ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\ecs">
+      <UniqueIdentifier>{4f4ab1d4-63a6-4d57-b6c1-cfecaa6ecc75}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\core\Engine.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Window.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\ImGui\imconfig.h">
+      <Filter>third_party\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\ImGui\imgui.h">
+      <Filter>third_party\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\ImGui\imgui_impl_dx11.h">
+      <Filter>third_party\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\ImGui\imgui_impl_win32.h">
+      <Filter>third_party\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\ImGui\imgui_internal.h">
+      <Filter>third_party\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\ImGui\imstb_rectpack.h">
+      <Filter>third_party\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\ImGui\imstb_textedit.h">
+      <Filter>third_party\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="third_party\ImGui\imstb_truetype.h">
+      <Filter>third_party\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\ecs\Entity.h">
+      <Filter>src\core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\ecs\Utils.h">
+      <Filter>src\core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\ecs\IComponentData.h">
+      <Filter>src\core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\ecs\Archetype.h">
+      <Filter>src\core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\ecs\TypeInfo.h">
+      <Filter>src\core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\ecs\Chunk.h">
+      <Filter>src\core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\ecs\ComponentArray.h" />
+    <ClInclude Include="src\core\ecs\World.h" />
+    <ClInclude Include="src\core\ecs\EntityManager.h" />
+    <ClInclude Include="src\core\ecs\SystemBase.h" />
+    <ClInclude Include="src\core\ecs\TestComponent.h" />
+    <ClInclude Include="src\core\ecs\TestSystem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\core\Engine.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Window.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\ImGui\imgui.cpp">
+      <Filter>third_party\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\ImGui\imgui_draw.cpp">
+      <Filter>third_party\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\ImGui\imgui_impl_dx11.cpp">
+      <Filter>third_party\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\ImGui\imgui_impl_win32.cpp">
+      <Filter>third_party\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\ImGui\imgui_tables.cpp">
+      <Filter>third_party\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="third_party\ImGui\imgui_widgets.cpp">
+      <Filter>third_party\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\ecs\TypeInfo.cpp">
+      <Filter>src\core\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\ecs\SystemBase.cpp" />
+    <ClCompile Include="src\core\ecs\TestSystem.cpp" />
+    <ClCompile Include="src\core\ecs\World.cpp" />
+  </ItemGroup>
+</Project>
