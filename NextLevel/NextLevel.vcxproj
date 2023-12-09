@@ -105,12 +105,13 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(ProjectDir);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)/third_party;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)/third_party;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -122,31 +123,42 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(ProjectDir);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)/third_party;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)/third_party;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\core\ecs\Archetype.h" />
-    <ClInclude Include="src\core\ecs\Chunk.h" />
-    <ClInclude Include="src\core\ecs\ComponentArray.h" />
-    <ClInclude Include="src\core\ecs\Entity.h" />
-    <ClInclude Include="src\core\ecs\EntityManager.h" />
-    <ClInclude Include="src\core\ecs\IComponentData.h" />
-    <ClInclude Include="src\core\ecs\SystemBase.h" />
-    <ClInclude Include="src\core\ecs\TestComponent.h" />
-    <ClInclude Include="src\core\ecs\TestSystem.h" />
-    <ClInclude Include="src\core\ecs\TypeInfo.h" />
-    <ClInclude Include="src\core\ecs\Utils.h" />
-    <ClInclude Include="src\core\ecs\World.h" />
-    <ClInclude Include="src\core\Engine.h" />
-    <ClInclude Include="src\core\Window.h" />
+    <ClInclude Include="src\common\core\utils\CustomException.h" />
+    <ClInclude Include="src\common\core\PlatformDefinitions.h" />
+    <ClInclude Include="src\common\core\resource\TextureData.h" />
+    <ClInclude Include="src\common\core\resource\TextureInstance.h" />
+    <ClInclude Include="src\common\core\resource\TextureManager.h" />
+    <ClInclude Include="src\common\core\utils\Timer.h" />
+    <ClInclude Include="src\engine\graphics\windows\Graphics.h" />
+    <ClInclude Include="src\common\core\ecs\Archetype.h" />
+    <ClInclude Include="src\common\core\ecs\Chunk.h" />
+    <ClInclude Include="src\common\core\ecs\ComponentArray.h" />
+    <ClInclude Include="src\common\core\ecs\Entity.h" />
+    <ClInclude Include="src\common\core\ecs\EntityManager.h" />
+    <ClInclude Include="src\common\core\ecs\IComponentData.h" />
+    <ClInclude Include="src\common\core\ecs\SystemBase.h" />
+    <ClInclude Include="src\common\core\utils\TypeInfo.h" />
+    <ClInclude Include="src\common\core\ecs\Utils.h" />
+    <ClInclude Include="src\common\core\ecs\World.h" />
+    <ClInclude Include="src\common\core\Application.h" />
+    <ClInclude Include="src\platform\WindowManager.h" />
+    <ClInclude Include="src\platform\windows\WindowsWindow.h" />
+    <ClInclude Include="src\engine\graphics\windows\low_level\DepthStencil.h" />
+    <ClInclude Include="src\engine\graphics\windows\low_level\RenderContext.h" />
+    <ClInclude Include="src\engine\graphics\windows\low_level\RenderTarget.h" />
+    <ClInclude Include="src\platform\WindowBase.h" />
     <ClInclude Include="third_party\ImGui\imconfig.h" />
     <ClInclude Include="third_party\ImGui\imgui.h" />
     <ClInclude Include="third_party\ImGui\imgui_impl_dx11.h" />
@@ -157,19 +169,24 @@
     <ClInclude Include="third_party\ImGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\core\ecs\SystemBase.cpp" />
-    <ClCompile Include="src\core\ecs\TestSystem.cpp" />
-    <ClCompile Include="src\core\ecs\World.cpp" />
-    <ClCompile Include="src\core\Engine.cpp" />
+    <ClCompile Include="src\common\core\resource\TextureData.cpp" />
+    <ClCompile Include="src\engine\graphics\windows\Graphics.cpp" />
+    <ClCompile Include="src\common\core\ecs\SystemBase.cpp" />
+    <ClCompile Include="src\common\core\ecs\World.cpp" />
+    <ClCompile Include="src\common\core\Application.cpp" />
+    <ClCompile Include="src\engine\graphics\windows\low_level\DepthStencil.cpp" />
+    <ClCompile Include="src\engine\graphics\windows\low_level\RenderContext.cpp" />
+    <ClCompile Include="src\engine\graphics\windows\low_level\RenderTarget.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\core\Window.cpp" />
+    <ClCompile Include="src\platform\WindowManager.cpp" />
+    <ClCompile Include="src\platform\windows\WindowsWindow.cpp" />
     <ClCompile Include="third_party\ImGui\imgui.cpp" />
     <ClCompile Include="third_party\ImGui\imgui_draw.cpp" />
     <ClCompile Include="third_party\ImGui\imgui_impl_dx11.cpp" />
     <ClCompile Include="third_party\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="third_party\ImGui\imgui_tables.cpp" />
     <ClCompile Include="third_party\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="src\core\ecs\TypeInfo.cpp" />
+    <ClCompile Include="src\common\core\utils\TypeInfo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

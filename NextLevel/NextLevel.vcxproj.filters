@@ -28,12 +28,18 @@
     <Filter Include="src\core\ecs">
       <UniqueIdentifier>{4f4ab1d4-63a6-4d57-b6c1-cfecaa6ecc75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\graphics\low_level">
+      <UniqueIdentifier>{f7c63650-9c1a-4639-ae60-2e38c5293a1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\resource">
+      <UniqueIdentifier>{4381ee61-4a48-41e9-9730-09d67bf31976}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\core\Engine.h">
+    <ClInclude Include="src\common\core\Application.h">
       <Filter>src\core</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Window.h">
+    <ClInclude Include="src\platform\windows\WindowsWindow.h">
       <Filter>src\core</Filter>
     </ClInclude>
     <ClInclude Include="third_party\ImGui\imconfig.h">
@@ -60,39 +66,71 @@
     <ClInclude Include="third_party\ImGui\imstb_truetype.h">
       <Filter>third_party\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\ecs\Entity.h">
+    <ClInclude Include="src\common\core\ecs\Entity.h">
       <Filter>src\core\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\ecs\Utils.h">
+    <ClInclude Include="src\common\core\ecs\Utils.h">
       <Filter>src\core\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\ecs\IComponentData.h">
+    <ClInclude Include="src\common\core\ecs\IComponentData.h">
       <Filter>src\core\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\ecs\Archetype.h">
+    <ClInclude Include="src\common\core\ecs\Archetype.h">
       <Filter>src\core\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\ecs\TypeInfo.h">
+    <ClInclude Include="src\common\core\ecs\Chunk.h">
       <Filter>src\core\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\ecs\Chunk.h">
+    <ClInclude Include="src\engine\graphics\windows\Graphics.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\core\ecs\ComponentArray.h">
       <Filter>src\core\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\ecs\ComponentArray.h" />
-    <ClInclude Include="src\core\ecs\World.h" />
-    <ClInclude Include="src\core\ecs\EntityManager.h" />
-    <ClInclude Include="src\core\ecs\SystemBase.h" />
-    <ClInclude Include="src\core\ecs\TestComponent.h" />
-    <ClInclude Include="src\core\ecs\TestSystem.h" />
+    <ClInclude Include="src\common\core\ecs\EntityManager.h">
+      <Filter>src\core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\core\ecs\SystemBase.h">
+      <Filter>src\core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\core\ecs\World.h">
+      <Filter>src\core\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\graphics\windows\low_level\DepthStencil.h">
+      <Filter>src\graphics\low_level</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\graphics\windows\low_level\RenderContext.h">
+      <Filter>src\graphics\low_level</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\graphics\windows\low_level\RenderTarget.h">
+      <Filter>src\graphics\low_level</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\core\resource\TextureData.h">
+      <Filter>src\core\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\core\resource\TextureInstance.h">
+      <Filter>src\core\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\core\resource\TextureManager.h">
+      <Filter>src\core\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\core\utils\TypeInfo.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\core\PlatformDefinitions.h" />
+    <ClInclude Include="src\platform\WindowBase.h" />
+    <ClInclude Include="src\common\core\utils\CustomException.h" />
+    <ClInclude Include="src\common\core\utils\Timer.h" />
+    <ClInclude Include="src\platform\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\core\Engine.cpp">
+    <ClCompile Include="src\common\core\Application.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\Window.cpp">
+    <ClCompile Include="src\platform\windows\WindowsWindow.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
     <ClCompile Include="third_party\ImGui\imgui.cpp">
@@ -113,11 +151,30 @@
     <ClCompile Include="third_party\ImGui\imgui_widgets.cpp">
       <Filter>third_party\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\ecs\TypeInfo.cpp">
+    <ClCompile Include="src\engine\graphics\windows\Graphics.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\core\ecs\SystemBase.cpp">
       <Filter>src\core\ecs</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\ecs\SystemBase.cpp" />
-    <ClCompile Include="src\core\ecs\TestSystem.cpp" />
-    <ClCompile Include="src\core\ecs\World.cpp" />
+    <ClCompile Include="src\common\core\ecs\World.cpp">
+      <Filter>src\core\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\windows\low_level\DepthStencil.cpp">
+      <Filter>src\graphics\low_level</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\windows\low_level\RenderContext.cpp">
+      <Filter>src\graphics\low_level</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\graphics\windows\low_level\RenderTarget.cpp">
+      <Filter>src\graphics\low_level</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\core\resource\TextureData.cpp">
+      <Filter>src\core\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\core\utils\TypeInfo.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\WindowManager.cpp" />
   </ItemGroup>
 </Project>
