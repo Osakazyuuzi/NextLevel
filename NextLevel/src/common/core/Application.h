@@ -21,6 +21,11 @@ namespace NextLevel
 		void Init();
 
 		/**
+		* @brief 終了処理をします。
+		*/
+		void Uninit();
+
+		/**
 		* @brief 処理を実行します。
 		*/
 		void Run();
@@ -36,9 +41,9 @@ namespace NextLevel
 		//! ウィンドウインスタンス
 		std::shared_ptr<IWindow> m_window;
 		//! 最後の実行時間
-		float m_dwExecLastTime;
+		unsigned long m_dwExecLastTime;
 		//! 現在時間
-		float m_dwCurrentTime;
+		unsigned long m_dwCurrentTime;
 		//! フレームレート
 		float m_fFps = 60.0f;
 		//! タイムスケール

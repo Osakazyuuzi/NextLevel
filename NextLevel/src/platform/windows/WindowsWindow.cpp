@@ -1,5 +1,11 @@
 #include "WindowsWindow.h"
 
+#include "third_party/ImGui/imgui.h"
+#include "third_party/ImGui/imgui_impl_dx11.h"
+#include "third_party/ImGui/imgui_impl_win32.h"
+
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
 namespace NextLevel
 {
 	/**
@@ -52,9 +58,9 @@ namespace NextLevel
 		RegisterClassEx(&wc);
 
 		RECT wr;
-		wr.left = 100;
+		wr.left = 20;
 		wr.right = m_nWidth + wr.left;
-		wr.top = 100;
+		wr.top = 45;
 		wr.bottom = m_nHeight + wr.top;
 
 		AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
@@ -112,6 +118,11 @@ namespace NextLevel
 	*/
 	LRESULT WindowsWindow::HandleMsg(HWND _hWnd, UINT _nMsg, WPARAM _wParam, LPARAM _lParam) noexcept
 	{
+		if (ImGui_ImplWin32_WndProcHandler(_hWnd, _nMsg, _wParam, _lParam))
+		{
+			return true;
+		}
+
 		switch (_nMsg)
 		{
 		case WM_CLOSE:

@@ -29,6 +29,8 @@ int main(int argc, char* argv[])
 
 	app->Run();
 
+	app->Uninit();
+
 #if PLATFORM_WINDOWS
 	return 0;
 }

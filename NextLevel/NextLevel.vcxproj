@@ -141,6 +141,7 @@
     <ClInclude Include="src\common\core\resource\TextureInstance.h" />
     <ClInclude Include="src\common\core\resource\TextureManager.h" />
     <ClInclude Include="src\common\core\utils\Timer.h" />
+    <ClInclude Include="src\engine\editor\windows\EditorManager.h" />
     <ClInclude Include="src\engine\graphics\windows\Graphics.h" />
     <ClInclude Include="src\common\core\ecs\Archetype.h" />
     <ClInclude Include="src\common\core\ecs\Chunk.h" />
@@ -170,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\core\resource\TextureData.cpp" />
+    <ClCompile Include="src\engine\editor\windows\EditorManager.cpp" />
     <ClCompile Include="src\engine\graphics\windows\Graphics.cpp" />
     <ClCompile Include="src\common\core\ecs\SystemBase.cpp" />
     <ClCompile Include="src\common\core\ecs\World.cpp" />

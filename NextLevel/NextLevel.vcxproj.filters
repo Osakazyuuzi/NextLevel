@@ -122,6 +122,7 @@
     <ClInclude Include="src\common\core\utils\CustomException.h" />
     <ClInclude Include="src\common\core\utils\Timer.h" />
     <ClInclude Include="src\platform\WindowManager.h" />
+    <ClInclude Include="src\engine\editor\windows\EditorManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\core\Application.cpp">
@@ -176,5 +177,6 @@
       <Filter>src\core</Filter>
     </ClCompile>
     <ClCompile Include="src\platform\WindowManager.cpp" />
+    <ClCompile Include="src\engine\editor\windows\EditorManager.cpp" />
   </ItemGroup>
 </Project>

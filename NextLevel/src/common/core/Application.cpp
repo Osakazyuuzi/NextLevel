@@ -4,8 +4,13 @@
 
 #include "../../platform/WindowManager.h"
 
-#include "src/engine/graphics/windows/Graphics.h"
 #include "src/platform/windows/WindowsWindow.h"
+#include "src/engine/graphics/windows/Graphics.h"
+#include "src/engine/editor/windows/EditorManager.h"
+
+#include "third_party/ImGui/imgui.h"
+#include "third_party/ImGui/imgui_impl_dx11.h"
+#include "third_party/ImGui/imgui_impl_win32.h"
 
 #include <timeapi.h>
 #pragma comment(lib, "winmm.lib")
@@ -18,10 +23,22 @@ namespace NextLevel
 	void Application::Init()
 	{
 		m_window = WindowManager::CreateWindowInstanceForPlatform();
-		m_window->Create(1280, 720, "Test");
+		m_window->Create(1280, 720, "NextLevel");
 
 		graphics::Graphics::GetInstance().Startup(dynamic_cast<WindowsWindow*>
 			(m_window.get())->GetWindowHandle(), m_window->GetWidth(), m_window->GetHeight());
+
+		EditorManager::GetInstance().Startup(dynamic_cast<WindowsWindow*>
+			(m_window.get())->GetWindowHandle());
+
+		timeBeginPeriod(1);
+	}
+
+	void Application::Uninit()
+	{
+		timeEndPeriod(1);
+		EditorManager::GetInstance().Shutdown();
+		graphics::Graphics::GetInstance().Shutdown();
 	}
 
 	/**
@@ -54,8 +71,16 @@ namespace NextLevel
 	*/
 	void Application::DoFrame(float _deltaTime)
 	{
-		graphics::Graphics::GetInstance().BeginRender(0.0f, 0.5f, 0.5f);
+		graphics::Graphics::GetInstance().BeginRender(
+			150.0f / 255.0f, 
+			200.0f / 255.0f, 
+			180.0f / 255.0f);
+		EditorManager::GetInstance().BeginRender();
 
+		EditorManager::GetInstance().Draw();
+
+
+		EditorManager::GetInstance().EndRender();
 		graphics::Graphics::GetInstance().EndRender();
 	}
 
