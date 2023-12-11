@@ -18,6 +18,28 @@ namespace NextLevel
 		* @brief マテリアルを管理するクラス。
 		*/
 		class MaterialManager {
+		private:
+			/**
+			* @brief コンストラクタ。
+			*/
+			MaterialManager() = default;
+
+			/**
+			* @brief デストラクタ。
+			*/
+			~MaterialManager() = default;
+
+		public:
+			/**
+			 * @brief シングルトンインスタンスを取得します。
+			 * @return MaterialManager& マテリアルマネージャークラスのインスタンス。
+			 */
+			static MaterialManager& GetInstance()
+			{
+				static MaterialrManager instance;
+				return instance;
+			}
+
 		public:
 			/**
 			* @brief マテリアルを新規作成します。
