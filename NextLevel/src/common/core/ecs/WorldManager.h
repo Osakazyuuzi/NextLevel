@@ -104,6 +104,11 @@ namespace NextLevel
 				return m_currentWorldHierarchy;
 			}
 
+			std::unordered_map<std::string, std::shared_ptr<World>>& GetWorldMap()
+			{
+				return m_worldMap;
+			}
+
 		private:
 			//! ワールドマップ
 			std::unordered_map<std::string, std::shared_ptr<World>> m_worldMap;
