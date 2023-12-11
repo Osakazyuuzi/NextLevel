@@ -13,6 +13,7 @@ namespace NextLevel
 	namespace resource
 	{
 		/**
+		* @class TextureManager
 		* @brief テクスチャを管理するクラス、
 		*/
 		class TextureManager
