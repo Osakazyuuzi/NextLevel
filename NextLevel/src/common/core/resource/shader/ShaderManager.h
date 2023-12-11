@@ -7,6 +7,7 @@
 #include <iostream>
 #include <mutex>
 #include <optional>
+#include <memory>
 
 #include "ShaderData.h"
 
