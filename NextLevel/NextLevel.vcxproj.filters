@@ -124,6 +124,7 @@
     <ClInclude Include="src\platform\WindowManager.h" />
     <ClInclude Include="src\engine\editor\windows\EditorManager.h" />
     <ClInclude Include="src\common\core\resource\shader\ShaderData.h" />
+    <ClInclude Include="src\common\core\resource\shader\ShaderManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\core\Application.cpp">
@@ -179,6 +180,7 @@
     </ClCompile>
     <ClCompile Include="src\platform\WindowManager.cpp" />
     <ClCompile Include="src\engine\editor\windows\EditorManager.cpp" />
+    <ClCompile Include="src\common\core\resource\shader\ShaderData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\common\Common.hlsli" />

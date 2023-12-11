@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\common\core\resource\shader\ShaderData.h" />
+    <ClInclude Include="src\common\core\resource\shader\ShaderManager.h" />
     <ClInclude Include="src\common\core\utils\CustomException.h" />
     <ClInclude Include="src\common\core\PlatformDefinitions.h" />
     <ClInclude Include="src\common\core\resource\texture\TextureData.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="third_party\ImGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\core\resource\shader\ShaderData.cpp" />
     <ClCompile Include="src\common\core\resource\texture\TextureData.cpp" />
     <ClCompile Include="src\engine\editor\windows\EditorManager.cpp" />
     <ClCompile Include="src\engine\graphics\windows\Graphics.cpp" />
