@@ -1,5 +1,5 @@
-#ifndef ___SRC_CORE_RESOURCE_TEXTUREDATA_H___
-#define ___SRC_CORE_RESOURCE_TEXTUREDATA_H___
+#ifndef ___SRC_COMMON_CORE_RESOURCE_TEXTURE_TEXTUREDATA_H___
+#define ___SRC_COMMON_CORE_RESOURCE_TEXTURE_TEXTUREDATA_H___
 
 #include <d3d11.h>
 #include <wrl.h>
@@ -102,4 +102,4 @@ namespace NextLevel
 	}
 }
 
-#endif //!___SRC_CORE_RESOURCE_H___
+#endif //!___SRC_COMMON_CORE_RESOURCE TEXTURE_TEXTUREDATA_H___

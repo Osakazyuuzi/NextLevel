@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ___SRC_COMMON_CORE_PLATFORMDEFINITIONS_H___
+#define ___SRC_COMMON_CORE_PLATFORMDEFINITIONS_H___
 
 /**
 * @brief OS‚Ì’è‹`
@@ -12,3 +13,5 @@
 #ifndef PLATFORM_WINDOWS
 #define PLATFORM_WINDOWS 0
 #endif
+
+#endif //!___SRC_COMMON_CORE_PLATFORMDEFINITIONS_H___

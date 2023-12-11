@@ -1,5 +1,5 @@
-#ifndef ___SRC_CORE_APPLICATION_H___
-#define ___SRC_CORE_APPLICATION_H___
+#ifndef ___SRC_COMMMON_CORE_APPLICATION_H___
+#define ___SRC_COMMMON_CORE_APPLICATION_H___
 
 #include <string>
 #include <memory>

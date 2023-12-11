@@ -123,6 +123,7 @@
     <ClInclude Include="src\common\core\utils\Timer.h" />
     <ClInclude Include="src\platform\WindowManager.h" />
     <ClInclude Include="src\engine\editor\windows\EditorManager.h" />
+    <ClInclude Include="src\common\core\resource\shader\ShaderData.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\core\Application.cpp">

@@ -1,13 +1,7 @@
 #include "TextureData.h"
 
-/////////////////
-// インクルード //
-/////////////////
 #include <iostream>
 
-//////////////////////////
-// オリジナルインクルード //
-//////////////////////////
 #include "src/engine/graphics/windows/Graphics.h"
 #include "third_party/DirectXTex/TextureLoad.h"
 
