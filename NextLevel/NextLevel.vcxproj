@@ -135,6 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\core\resource\material\MaterialData.h" />
+    <ClInclude Include="src\common\core\resource\material\MaterialManager.h" />
     <ClInclude Include="src\common\core\resource\shader\ShaderData.h" />
     <ClInclude Include="src\common\core\resource\shader\ShaderManager.h" />
     <ClInclude Include="src\common\core\utils\CustomException.h" />
