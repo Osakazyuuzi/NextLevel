@@ -28,6 +28,17 @@ namespace NextLevel
 				}
 			}
 
+			void Draw()
+			{
+				for (auto systems : m_SystemList)
+				{
+					for (auto&& system : systems)
+					{
+						system->Draw();
+					}
+				}
+			}
+
 			template <typename SystemT>
 			void AddSystem(const std::size_t& _updateOrder)
 			{
@@ -41,15 +52,26 @@ namespace NextLevel
 				m_SystemList[_updateOrder].back()->Init();
 			}
 
-			EntityManager* GetEntityManager()
+			std::shared_ptr<EntityManager> GetEntityManager()
 			{
-				return m_pEntityManager.get();
+				return m_pEntityManager;
+			}
+
+			void SetName(std::string _name)
+			{
+				m_szName = _name;
+			}
+
+			std::string GetName() const noexcept
+			{
+				return m_szName;
 			}
 
 		private:
 			std::vector<Chunk> m_ChunkList;
 			std::vector<std::vector<std::shared_ptr<SystemBase>>> m_SystemList;
 			std::shared_ptr<EntityManager> m_pEntityManager;
+			std::string m_szName;
 		};
 	}
 }

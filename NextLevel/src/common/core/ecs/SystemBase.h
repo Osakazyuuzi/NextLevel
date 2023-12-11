@@ -31,10 +31,15 @@ namespace NextLevel
 			virtual void Init() = 0;
 
 			/**
-			* @brief 毎フレーム処理を実行します。
+			* @brief 処理を実行します。
 			* @param _deltaTime 前フレームとの差[ms]
 			*/
-			virtual void Update(float _deltaTime) = 0;
+			virtual void Update(float _deltaTime) {}
+
+			/**
+			* @brief 描画を実行します。
+			*/
+			virtual void Draw() {}
 
 			/**
 			* @brief 実行するのに必要とするアーキタイプを取得します。
@@ -47,9 +52,9 @@ namespace NextLevel
 
 			/**
 			* @brief 属しているワールドのエンティティマネージャーを取得します。
-			* @return EntityManager* 属しているワールドのエンティティマネージャー。
+			* @return std::shared_ptr<EntityManager> 属しているワールドのエンティティマネージャー。
 			*/
-			EntityManager* GetEntityManager();
+			std::shared_ptr<EntityManager> GetEntityManager();
 
 		protected:
 			//! 実行するのに必要とするアーキタイプ。

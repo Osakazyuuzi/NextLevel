@@ -5,7 +5,7 @@ namespace NextLevel
 {
 	namespace ecs
 	{
-		EntityManager* SystemBase::GetEntityManager()
+		std::shared_ptr<EntityManager> SystemBase::GetEntityManager()
 		{
 			return m_pWorld->GetEntityManager();
 		}

@@ -1,6 +1,7 @@
 #ifndef ___SRC_COMMON_CORE_ECS_ENTITYMANAGER_H___
 #define ___SRC_COMMON_CORE_ECS_ENTITYMANAGER_H___
 
+
 #include "IComponentData.h"
 #include "Utils.h"
 #include "Archetype.h"
@@ -50,13 +51,13 @@ namespace NextLevel
 				if (!ExistEntity(_entity)) return;
 
 				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Idntifier);
-				EntityInfo& entityInfo = m_vEntities[entityIndex].first;
+				EntityInfo& entityInfo = m_vEntities[entityIndex].second.first;
 
 				m_pWorld->m_ChunkList[entityInfo.first].DestroyEntity(entityInfo.second);
 
 				utils::SetVersion(
-					m_vEntities[entityIndex].second.m_Idntifier,
-					utils::GetVersion(m_vEntities[entityIndex].second.m_Idntifier)
+					m_vEntities[entityIndex].second.second.m_Idntifier,
+					utils::GetVersion(m_vEntities[entityIndex].second.second.m_Idntifier)
 				);
 
 				m_vRecycleEntityIndices.push_back(entityIndex);
@@ -71,7 +72,7 @@ namespace NextLevel
 			{
 				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Idntifier);
 				return _entity.m_Idntifier
-					== m_vEntities[entityIndex].second.m_Idntifier;
+					== m_vEntities[entityIndex].second.second.m_Idntifier;
 			}
 
 			/**
@@ -202,6 +203,43 @@ namespace NextLevel
 
 		private:
 			/**
+			* @brief 名前の被り補正をします。
+			* @param _name 補正する名前。
+			* @param _num 補正回数。
+			* @return std::string 補正した名前。
+			*/
+			std::string NameSetting(std::string _name, int _num)
+			{
+				std::string newName = _name;
+
+				for (auto it : m_vEntities)
+				{
+					if (it.first == _name)
+					{
+						// 初回の場合
+						if (_num == 0)
+						{
+							// [ (1)]をつける
+							newName += " (1)";
+						}
+						else
+						{
+							// 末尾の数字を増やす
+							newName = _name.substr(0, _name.find_last_of(" "));
+							newName += " (" + std::to_string(_num + 1) + ")";
+						}
+
+						// 再度補正を行う。
+						newName = NameSetting(newName, _num + 1);
+						break;
+					}
+				}
+
+				// 補正した名前を返す。
+				return newName;
+			}
+
+			/**
 			* @brief 新しいエンティティを作成します。
 			* @return 作成されたエンティティのインデックスとバージョンのペア。
 			*/
@@ -209,10 +247,16 @@ namespace NextLevel
 			{
 				if (m_vRecycleEntityIndices.size() != 0)
 					std::abort();
+
+				std::string name = "Empty";
+				name = NameSetting(name, 0);
+
 				m_vEntities.push_back(
+					std::pair<std::string, std::pair<EntityInfo, Entity>>(
+						name, 
 					std::pair<EntityInfo, Entity>(
 						std::pair<ChunkIndex, ChunkInIndex>(0, 0),
-						Entity(m_vEntities.size(), 0)
+						Entity(m_vEntities.size(), 0))
 					)
 				);
 				return std::pair<std::uint32_t, std::uint32_t>(
@@ -230,9 +274,9 @@ namespace NextLevel
 					std::abort();
 				std::uint32_t index = m_vRecycleEntityIndices[0];
 				m_vRecycleEntityIndices.erase(m_vRecycleEntityIndices.begin());
-				std::uint32_t version = utils::GetVersion(m_vEntities[index].second.m_Idntifier);
+				std::uint32_t version = utils::GetVersion(m_vEntities[index].second.second.m_Idntifier);
 				version++;
-				utils::SetVersion(m_vEntities[index].second.m_Idntifier, version);
+				utils::SetVersion(m_vEntities[index].second.second.m_Idntifier, version);
 				return std::pair<std::uint32_t, std::uint32_t>(index, version);
 			}
 
@@ -248,13 +292,13 @@ namespace NextLevel
 				const std::uint32_t chunkIndex = GetAndCreateChunkIndex(_archetype, true);
 				std::uint32_t chunkInIndex = m_pWorld->m_ChunkList[chunkIndex].
 					CreateEntity(entityInfo.first, entityInfo.second);
-				m_vEntities[entityInfo.first].first =
+				m_vEntities[entityInfo.first].second.first =
 					EntityInfo(chunkIndex, chunkInIndex);
-				return m_vEntities[entityInfo.first].second;
+				return m_vEntities[entityInfo.first].second.second;
 			}
 
 			//! エンティティとその情報を保持する配列。
-			std::vector<std::pair<EntityInfo, Entity>> m_vEntities;
+			std::vector<std::pair<std::string, std::pair<EntityInfo, Entity>>> m_vEntities;
 			//! 再利用可能なエンティティインデックスの配列。
 			std::vector<std::uint32_t> m_vRecycleEntityIndices;
 			//! 属するワールドへのポインタ。

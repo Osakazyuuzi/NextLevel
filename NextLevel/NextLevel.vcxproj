@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\core\ecs\WorldManager.h" />
     <ClInclude Include="src\common\core\resource\material\MaterialData.h" />
     <ClInclude Include="src\common\core\resource\material\MaterialManager.h" />
     <ClInclude Include="src\common\core\resource\model\ModelData.h" />
