@@ -56,12 +56,12 @@ namespace NextLevel
 		void Draw();
 
 	private:
-		bool m_bMaster = true;
-		bool m_bScene = true;
-		bool m_bHierarchy = true;
-		bool m_bInspector = true;
-		bool m_bConsole = true;
-		bool m_bAssets = true;
+		bool m_bMaster;
+		bool m_bScene;
+		bool m_bHierarchy;
+		bool m_bInspector;
+		bool m_bConsole;
+		bool m_bAssets;
 		bool m_bDebug = true;
 	private:
 		Timer m_timer;

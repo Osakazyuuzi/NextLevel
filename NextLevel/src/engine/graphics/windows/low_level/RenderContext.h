@@ -5,6 +5,9 @@
 #include <wrl.h>
 #include <DirectXMath.h>
 #include <memory>
+#include "src/common/core/resource/texture/TextureData.h"
+#include "src/common/core/resource/shader/ShaderData.h"
+#include "src/common/core/resource/material/MaterialData.h"
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -16,7 +19,6 @@ namespace NextLevel
 		{
 			class RenderTarget;
 			class DepthStencil;
-			class Material;
 
 			class RenderContext
 			{
@@ -44,10 +46,10 @@ namespace NextLevel
 
 				void SetProjectionMatrix(DirectX::XMFLOAT4X4* _projectionMat);
 
-				void SetMaterial(Material material);
+				void SetMaterial(resource::MaterialData _material);
 
-				//void SetTexture(UINT _slot, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> _pTex, 
-				//	Shader::EnKind enKind = Shader::enPixel);
+				void SetTexture(UINT _slot, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> _pTex, 
+					resource::ShaderData::EnKind _enKind = resource::ShaderData::EnKind::enPixel);
 
 				enum EnCullingMode {
 					enCULLING_NONE,
@@ -96,8 +98,8 @@ namespace NextLevel
 				Microsoft::WRL::ComPtr<ID3D11BlendState> m_pBlendState[EnBlendMode::enBLEND_MAX];
 				Microsoft::WRL::ComPtr<ID3D11SamplerState> m_pSamplerState[EnSamplerStateMode::enSAMPLER_MAX];
 				D3D11_VIEWPORT m_currentViewport;
-				ID3D11Buffer* m_pConstantBuffers[MAX_CONSTANT_BUFFER] = { nullptr };
-				ID3D11ShaderResourceView* m_pShaderResources[MAX_SHADER_RESOURCE] = { nullptr };
+				Microsoft::WRL::ComPtr<ID3D11Buffer> m_pConstantBuffers[MAX_CONSTANT_BUFFER] = { nullptr };
+				Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pShaderResources[MAX_SHADER_RESOURCE] = { nullptr };
 			};
 		}
 	}

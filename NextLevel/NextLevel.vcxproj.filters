@@ -108,9 +108,6 @@
     <ClInclude Include="src\common\core\resource\texture\TextureData.h">
       <Filter>src\core\resource</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\core\resource\texture\TextureInstance.h">
-      <Filter>src\core\resource</Filter>
-    </ClInclude>
     <ClInclude Include="src\common\core\resource\texture\TextureManager.h">
       <Filter>src\core\resource</Filter>
     </ClInclude>
@@ -127,6 +124,8 @@
     <ClInclude Include="src\common\core\resource\shader\ShaderManager.h" />
     <ClInclude Include="src\common\core\resource\material\MaterialData.h" />
     <ClInclude Include="src\common\core\resource\material\MaterialManager.h" />
+    <ClInclude Include="src\common\core\resource\model\ModelData.h" />
+    <ClInclude Include="src\common\core\utils\CreateTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\core\Application.cpp">
@@ -183,6 +182,8 @@
     <ClCompile Include="src\platform\WindowManager.cpp" />
     <ClCompile Include="src\engine\editor\windows\EditorManager.cpp" />
     <ClCompile Include="src\common\core\resource\shader\ShaderData.cpp" />
+    <ClCompile Include="src\common\core\resource\model\ModelData.cpp" />
+    <ClCompile Include="src\common\core\utils\CreateTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\common\Common.hlsli" />

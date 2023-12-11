@@ -4,6 +4,8 @@
 #include "RenderTarget.h"
 #include "DepthStencil.h"
 
+#include "src/common/core/resource/material/MaterialData.h"
+
 namespace NextLevel
 {
 	namespace graphics
@@ -148,6 +150,17 @@ namespace NextLevel
 					m_pRasterizerState[i].Reset();
 			}
 
+			void RenderContext::SetVertexBuffer(Microsoft::WRL::ComPtr<ID3D11Buffer> _vtxBuf, UINT _stride)
+			{
+				UINT offset = 0;
+				graphics::Graphics::GetInstance().GetDeviceContext()->IASetVertexBuffers(0, 1, &_vtxBuf, &_stride, &offset);
+			}
+
+			void RenderContext::SetIndexBuffer(Microsoft::WRL::ComPtr<ID3D11Buffer> _idxBuf)
+			{
+				graphics::Graphics::GetInstance().GetDeviceContext()->IASetIndexBuffer(_idxBuf.Get(), DXGI_FORMAT_R32_UINT, 0);
+			}
+
 			///*
 			//[関数概要]
 			//頂点バッファを設定する
@@ -278,7 +291,7 @@ namespace NextLevel
 						DirectX::XMLoadFloat4x4(worldMat)
 					)
 				);
-				graphics::Graphics::GetInstance().GetDeviceContext()->UpdateSubresource(m_pConstantBuffers[0], 0, NULL, &world, 0, 0);
+				graphics::Graphics::GetInstance().GetDeviceContext()->UpdateSubresource(m_pConstantBuffers[0].Get(), 0, NULL, &world, 0, 0);
 			}
 
 			/*
@@ -296,7 +309,7 @@ namespace NextLevel
 						DirectX::XMLoadFloat4x4(viewMat)
 					)
 				);
-				graphics::Graphics::GetInstance().GetDeviceContext()->UpdateSubresource(m_pConstantBuffers[1], 0, NULL, &view, 0, 0);
+				graphics::Graphics::GetInstance().GetDeviceContext()->UpdateSubresource(m_pConstantBuffers[1].Get(), 0, NULL, &view, 0, 0);
 			}
 
 			/*
@@ -314,42 +327,37 @@ namespace NextLevel
 						DirectX::XMLoadFloat4x4(projectionMat)
 					)
 				);
-				graphics::Graphics::GetInstance().GetDeviceContext()->UpdateSubresource(m_pConstantBuffers[2], 0, NULL, &projection, 0, 0);
+				graphics::Graphics::GetInstance().GetDeviceContext()->UpdateSubresource(m_pConstantBuffers[2].Get(), 0, NULL, &projection, 0, 0);
 			}
 
+			void RenderContext::SetMaterial(resource::MaterialData _material)
+			{
+				graphics::Graphics::GetInstance().GetDeviceContext()->UpdateSubresource(m_pConstantBuffers[3].Get(), 0, NULL, &_material, 0, 0);
+			}
 
-			///*
-			//[関数概要]
-			//テクスチャを設定する
+			void RenderContext::SetTexture(UINT _slot, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> _pTex, resource::ShaderData::EnKind _enKind)
+			{
+				if (_slot < 0 || SHADER_RESOURCE::MAX_SHADER_RESOURCE < _slot) {
+					// エラー出力
+					MessageBox(nullptr, "Error:SetTexture[Slot]", "Error", MB_ICONERROR | MB_OK);
+					return;
+				}
 
-			//[引数]
-			//UINT						slot	何番目か
-			//ID3D11ShaderResourceView*	tex		テクスチャ
-			//EnKind						enKind	設定するシェーダーの種類
-			//*/
-			//void RenderContext::SetTexture(UINT slot, ID3D11ShaderResourceView* tex, Shader::EnKind enKind)
-			//{
-			//	if (slot < 0 || SHADER_RESOURCE::MAX_SHADER_RESOURCE < slot) {
-			//		// エラー出力
-			//		MessageBox(nullptr, "Error:SetTexture[Slot]", "Error", MB_ICONERROR | MB_OK);
-			//		return;
-			//	}
-
-			//	m_shaderResources[slot] = tex;
-			//	switch (enKind)
-			//	{
-			//	case Shader::enVertex:
-			//	{
-			//		g_graphics->GetContext()->VSSetShaderResources(slot, 1, &m_shaderResources[slot]);
-			//		break;
-			//	}
-			//	case Shader::enPixel:
-			//	{
-			//		g_graphics->GetContext()->PSSetShaderResources(slot, 1, &m_shaderResources[slot]);
-			//		break;
-			//	}
-			//	}
-			//}
+				m_pShaderResources[_slot] = _pTex;
+				switch (_enKind)
+				{
+				case resource::ShaderData::enVertex:
+				{
+					graphics::Graphics::GetInstance().GetDeviceContext()->VSSetShaderResources(_slot, 1, &m_pShaderResources[_slot]);
+					break;
+				}
+				case resource::ShaderData::enPixel:
+				{
+					graphics::Graphics::GetInstance().GetDeviceContext()->PSSetShaderResources(_slot, 1, &m_pShaderResources[_slot]);
+					break;
+				}
+				}
+			}
 
 
 			/*

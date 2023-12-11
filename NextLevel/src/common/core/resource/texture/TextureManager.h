@@ -4,9 +4,10 @@
 #include <memory>
 #include <map>
 #include <unordered_map>
+#include <mutex>
+#include <optional>
 
 #include "TextureData.h"
-#include "TextureInstance.h"
 
 namespace NextLevel
 {
@@ -46,17 +47,42 @@ namespace NextLevel
 			 * @param _fileName テクスチャファイルの名前。
 			 * @return std::shared_ptr<TextureInstance> テクスチャインスタンス。
 			 */
-			std::shared_ptr<TextureInstance> LoadTexture(const char* _fileName)
+			std::shared_ptr<TextureData> LoadTexture(const char* _fileName)
 			{
+				std::lock_guard<std::mutex> lock(m_mutex);
+
 				auto it = m_idList.find(_fileName);
 				if (it != m_idList.end())
-					return std::make_shared<TextureInstance>(it->second);
+					return m_textureMap[it->second];
 
 				int newId = m_nextId++;
 				m_idList[_fileName] = newId;
-				m_textureMap[newId] = std::make_shared<TextureData>(_fileName);
+				m_textureMap[newId] = std::make_shared<TextureData>();
 
-				return std::make_shared<TextureInstance>(newId);
+				return m_textureMap[newId];
+			}
+
+			std::optional<int> GetTextureID(std::string _fileName)
+			{
+				std::lock_guard<std::mutex> lock(m_mutex);
+
+				// 既存の探索
+				auto it = m_idList.find(_fileName.c_str());
+				if (it != m_idList.end())
+					return it->second;
+
+				// 新規
+				std::shared_ptr<TextureData> newTexture
+					= std::make_shared<TextureData>();
+				if (FAILED(newTexture->Create(_fileName.c_str())))
+					return {};
+
+				int newId = m_nextId;
+				m_idList[_fileName.c_str()] = newId;
+				m_textureMap[newId] = newTexture;
+				m_nextId++;
+
+				return newId;
 			}
 
 			/**
@@ -66,6 +92,8 @@ namespace NextLevel
 			 */
 			std::shared_ptr<TextureData> GetTextureData(int _textureId)
 			{
+				std::lock_guard<std::mutex> lock(m_mutex);
+
 				auto it = m_textureMap.find(_textureId);
 				if (it != m_textureMap.end())
 					return it->second;
@@ -73,6 +101,8 @@ namespace NextLevel
 			}
 
 		private:
+			//! ミューテックス
+			std::mutex m_mutex;
 			//! 次に割り当てるテクスチャID。
 			int m_nextId = 0;
 			//! ファイル名とテクスチャIDのマップ。
