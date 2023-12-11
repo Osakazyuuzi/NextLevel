@@ -137,9 +137,9 @@
   <ItemGroup>
     <ClInclude Include="src\common\core\utils\CustomException.h" />
     <ClInclude Include="src\common\core\PlatformDefinitions.h" />
-    <ClInclude Include="src\common\core\resource\TextureData.h" />
-    <ClInclude Include="src\common\core\resource\TextureInstance.h" />
-    <ClInclude Include="src\common\core\resource\TextureManager.h" />
+    <ClInclude Include="src\common\core\resource\texture\TextureData.h" />
+    <ClInclude Include="src\common\core\resource\texture\TextureInstance.h" />
+    <ClInclude Include="src\common\core\resource\texture\TextureManager.h" />
     <ClInclude Include="src\common\core\utils\Timer.h" />
     <ClInclude Include="src\engine\editor\windows\EditorManager.h" />
     <ClInclude Include="src\engine\graphics\windows\Graphics.h" />
@@ -170,7 +170,7 @@
     <ClInclude Include="third_party\ImGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\common\core\resource\TextureData.cpp" />
+    <ClCompile Include="src\common\core\resource\texture\TextureData.cpp" />
     <ClCompile Include="src\engine\editor\windows\EditorManager.cpp" />
     <ClCompile Include="src\engine\graphics\windows\Graphics.cpp" />
     <ClCompile Include="src\common\core\ecs\SystemBase.cpp" />
@@ -189,6 +189,26 @@
     <ClCompile Include="third_party\ImGui\imgui_tables.cpp" />
     <ClCompile Include="third_party\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="src\common\core\utils\TypeInfo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\common\Common.hlsli">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader\pixel\PS_Default.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="shader\vertex\VS_Default.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

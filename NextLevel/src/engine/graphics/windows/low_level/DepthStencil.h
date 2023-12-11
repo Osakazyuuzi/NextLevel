@@ -5,7 +5,7 @@
 #include <d3d11.h>
 #include <wrl.h>
 
-#include "src/common/core/resource/TextureData.h"
+#include "src/common/core/resource/texture/TextureData.h"
 
 namespace NextLevel
 {

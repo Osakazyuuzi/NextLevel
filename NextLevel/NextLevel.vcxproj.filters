@@ -105,13 +105,13 @@
     <ClInclude Include="src\engine\graphics\windows\low_level\RenderTarget.h">
       <Filter>src\graphics\low_level</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\core\resource\TextureData.h">
+    <ClInclude Include="src\common\core\resource\texture\TextureData.h">
       <Filter>src\core\resource</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\core\resource\TextureInstance.h">
+    <ClInclude Include="src\common\core\resource\texture\TextureInstance.h">
       <Filter>src\core\resource</Filter>
     </ClInclude>
-    <ClInclude Include="src\common\core\resource\TextureManager.h">
+    <ClInclude Include="src\common\core\resource\texture\TextureManager.h">
       <Filter>src\core\resource</Filter>
     </ClInclude>
     <ClInclude Include="src\common\core\utils\TypeInfo.h">
@@ -170,7 +170,7 @@
     <ClCompile Include="src\engine\graphics\windows\low_level\RenderTarget.cpp">
       <Filter>src\graphics\low_level</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\core\resource\TextureData.cpp">
+    <ClCompile Include="src\common\core\resource\texture\TextureData.cpp">
       <Filter>src\core\resource</Filter>
     </ClCompile>
     <ClCompile Include="src\common\core\utils\TypeInfo.cpp">
@@ -178,5 +178,12 @@
     </ClCompile>
     <ClCompile Include="src\platform\WindowManager.cpp" />
     <ClCompile Include="src\engine\editor\windows\EditorManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\common\Common.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader\pixel\PS_Default.hlsl" />
+    <FxCompile Include="shader\vertex\VS_Default.hlsl" />
   </ItemGroup>
 </Project>
