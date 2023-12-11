@@ -36,7 +36,7 @@ namespace NextLevel
 			 */
 			static MaterialManager& GetInstance()
 			{
-				static MaterialrManager instance;
+				static MaterialManager instance;
 				return instance;
 			}
 
