@@ -19,14 +19,22 @@ namespace NextLevel
 			* @param _version エンティティのバージョン
 			*/
 			Entity(const std::uint32_t _index, const std::uint32_t _version)
-				: m_Idntifier(NULL)
+				: m_Identifier(NULL)
 			{
-				utils::SetIndex(m_Idntifier, _index);
-				utils::SetVersion(m_Idntifier, _version);
+				utils::SetIndex(m_Identifier, _index);
+				utils::SetVersion(m_Identifier, _version);
 			}
 
+			/**
+			* @brief コンストラクタ
+			* @param _Identifier エンティティの識別ビット。
+			*/
+			Entity(const utils::EntityIdentifier _Identifier)
+				: m_Identifier(_Identifier)
+			{}
+
 			//! エンティティの一意の識別ビット。
-			utils::EntityIdentifier m_Idntifier;
+			utils::EntityIdentifier m_Identifier;
 		};
 	}
 }

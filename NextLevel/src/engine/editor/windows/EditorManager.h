@@ -3,6 +3,9 @@
 
 #include <d3d11.h>
 #include "src/common/core/utils/Timer.h"
+#include "SceneGraphEditor.h"
+#include "InspectorEditor.h"
+#include "HierarchyEditor.h"
 
 namespace NextLevel
 {
@@ -57,7 +60,7 @@ namespace NextLevel
 
 	private:
 		bool m_bMaster;
-		bool m_bScene;
+		bool m_bSceneGraph;
 		bool m_bHierarchy;
 		bool m_bInspector;
 		bool m_bConsole;
@@ -65,6 +68,10 @@ namespace NextLevel
 		bool m_bDebug = true;
 	private:
 		Timer m_timer;
+		SceneGraphEditor m_SceneGraphEditor;
+		HierarchyEditor m_HierarchyEditor;
+		InspectorEditor m_InspectorEditor;
+
 	};
 
 }

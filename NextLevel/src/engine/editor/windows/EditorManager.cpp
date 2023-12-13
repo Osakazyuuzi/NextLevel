@@ -7,6 +7,8 @@
 
 #include "src/engine/graphics/windows/Graphics.h"
 
+#include "src/common/core/ecs/WorldManager.h"
+
 namespace NextLevel
 {
 	/**
@@ -15,6 +17,10 @@ namespace NextLevel
 	*/
 	void EditorManager::Startup(HWND _hWnd)
 	{
+		ecs::WorldManager::GetInstance().CreateWorld();
+		ecs::WorldManager::GetInstance().CreateWorld();
+		ecs::WorldManager::GetInstance().CreateWorld();
+
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO();
@@ -34,8 +40,13 @@ namespace NextLevel
 		style.Colors[ImGuiCol_ButtonHovered]	= ImVec4({ 190.0f / 255.0f, 230.0f / 255.0f, 210.0f / 255.0f, 1.0f });
 		style.Colors[ImGuiCol_ButtonActive]		= ImVec4({ 210.0f / 255.0f, 250.0f / 255.0f, 230.0f / 255.0f, 1.0f });
 
-		// ボタンの文字色
+		// 文字色
 		style.Colors[ImGuiCol_Text] = ImVec4(70.0f / 255.0f, 90.0f / 255.0f, 80.0f / 255.0f, 1.0f);
+
+		// 選択中の色
+		style.Colors[ImGuiCol_Header] = ImVec4(190.0f / 255.0f, 230.0f / 255.0f, 210.0f / 255.0f, 1.0f);
+		style.Colors[ImGuiCol_HeaderHovered] = ImVec4(210.0f / 255.0f, 250.0f / 255.0f, 230.0f / 255.0f, 1.0f);
+		style.Colors[ImGuiCol_HeaderActive] = ImVec4(215.0f / 255.0f, 255.0f / 255.0f, 235.0f / 255.0f, 1.0f);
 
 		ImGui_ImplWin32_Init(_hWnd);
 		ImGui_ImplDX11_Init(
@@ -93,12 +104,12 @@ namespace NextLevel
 		style.Colors[ImGuiCol_TitleBgCollapsed] = color;
 
 		// メニューバー
-		io.FontGlobalScale = 2.0f;
-		ImGui::SetNextWindowSize({1280, 50});
+		io.FontGlobalScale = 1.0f;
+		ImGui::SetNextWindowSize({1280, 35});
 		ImGui::Begin("Menu", nullptr, ImGuiWindowFlags_NoTitleBar);
 		if (ImGui::Button("Master")) m_bMaster ^= true;
 		ImGui::SameLine();
-		if (ImGui::Button("SceneGraph")) m_bScene ^= true;
+		if (ImGui::Button("SceneGraph")) m_bSceneGraph ^= true;
 		ImGui::SameLine();
 		if (ImGui::Button("Hierarchy")) m_bHierarchy ^= true;
 		ImGui::SameLine();
@@ -111,8 +122,12 @@ namespace NextLevel
 		if (ImGui::Button("Debug")) m_bDebug ^= true;
 		ImGui::SameLine();
 		ImGui::End();
-
-
+		
+		// ボタン色を変更
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(120.0f / 255.0f, 180.0f / 255.0f, 160.0f / 255.0f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(130.0f / 255.0f, 190.0f / 255.0f, 170.0f / 255.0f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(140.0f / 255.0f, 200.0f / 255.0f, 180.0f / 255.0f, 1.0f));
+		// ウィンドウの背景色を変更
 		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(150.0f / 255.0f, 200.0f / 255.0f, 180.0f / 255.0f, 1.0f));
 
 		// マスター
@@ -124,28 +139,11 @@ namespace NextLevel
 		}
 
 		// シーングラフ
-		if (m_bScene)
-		{
-			ImGui::Begin("SceneGraph", nullptr, ImGuiWindowFlags_NoCollapse);
-
-			ImGui::End();
-		}
-		
+		if (m_bSceneGraph) m_SceneGraphEditor.Draw();
 		// ヒエラルキー
-		if (m_bHierarchy)
-		{
-			ImGui::Begin("Hierarchy", nullptr, ImGuiWindowFlags_NoCollapse);
-
-			ImGui::End();
-		}
-
+		if (m_bHierarchy) m_HierarchyEditor.Draw();
 		// インスペクター
-		if (m_bInspector)
-		{
-			ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoCollapse);
-
-			ImGui::End();
-		}
+		if (m_bInspector) m_InspectorEditor.Draw();
 
 		// アセット
 		if (m_bAssets)
@@ -176,6 +174,6 @@ namespace NextLevel
 			ImGui::End();
 		}
 
-		ImGui::PopStyleColor(1);
+		ImGui::PopStyleColor(4);
 	}
 }

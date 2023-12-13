@@ -87,6 +87,70 @@ namespace NextLevel
 				return m_worldMap[name];
 			}
 
+			void SetCurrentWorld(std::string _name)
+			{
+				// 探索
+				auto it = m_worldMap.find(_name);
+				if (it == m_worldMap.end()) {
+					std::abort();
+					return;
+				}
+
+				// ルートワールドとして設定
+				m_currentWorldHierarchy.clear();
+				m_currentWorldHierarchy.push_back(it->second);
+			}
+
+			void AddSubWorld(std::string _name)
+			{
+				// 探索
+				auto it = m_worldMap.find(_name);
+				if (it == m_worldMap.end()) {
+					std::abort();
+					return;
+				}
+
+				// サブワールドとして設定
+				m_currentWorldHierarchy.push_back(it->second);
+			}
+
+			void RemoveSubWorld(std::string _name)
+			{
+				// 探索
+				for (auto it = m_currentWorldHierarchy.begin(); it != m_currentWorldHierarchy.end(); ++it)
+				{
+					if ((*it)->GetName() == _name)
+					{
+						m_currentWorldHierarchy.erase(it);
+						break;
+					}
+				}
+			}
+
+			std::shared_ptr<World> GetWorld(std::string _name)
+			{
+				auto it = m_worldMap.find(_name);
+				if (it != m_worldMap.end())
+					return it->second;
+				return nullptr;
+			}
+
+			void ChangeName(std::string _prevName, std::string _newName)
+			{
+				auto it1 = m_worldMap.find(_prevName);
+				if (it1 == m_worldMap.end())
+					return;
+
+				m_worldMap[_newName] = std::make_shared<World>();
+				m_worldMap[_newName].swap(m_worldMap[_prevName]);
+				m_worldMap[_newName]->SetName(_newName);
+
+				auto it2 = m_worldMap.find(_prevName);
+				if (it2 != m_worldMap.end())
+					m_worldMap.erase(it2);
+			}
+
+
 			void Update(float _deltaTime)
 			{
 				if (m_currentWorldHierarchy.size())

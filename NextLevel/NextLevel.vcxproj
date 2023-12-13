@@ -147,7 +147,11 @@
     <ClInclude Include="src\common\core\resource\texture\TextureData.h" />
     <ClInclude Include="src\common\core\resource\texture\TextureManager.h" />
     <ClInclude Include="src\common\core\utils\Timer.h" />
+    <ClInclude Include="src\engine\editor\Selectable.h" />
     <ClInclude Include="src\engine\editor\windows\EditorManager.h" />
+    <ClInclude Include="src\engine\editor\windows\HierarchyEditor.h" />
+    <ClInclude Include="src\engine\editor\windows\InspectorEditor.h" />
+    <ClInclude Include="src\engine\editor\windows\SceneGraphEditor.h" />
     <ClInclude Include="src\engine\graphics\windows\Graphics.h" />
     <ClInclude Include="src\common\core\ecs\Archetype.h" />
     <ClInclude Include="src\common\core\ecs\Chunk.h" />
@@ -181,6 +185,9 @@
     <ClCompile Include="src\common\core\resource\texture\TextureData.cpp" />
     <ClCompile Include="src\common\core\utils\CreateTexture.cpp" />
     <ClCompile Include="src\engine\editor\windows\EditorManager.cpp" />
+    <ClCompile Include="src\engine\editor\windows\HierarchyEditor.cpp" />
+    <ClCompile Include="src\engine\editor\windows\InspectorEditor.cpp" />
+    <ClCompile Include="src\engine\editor\windows\SceneGraphEditor.cpp" />
     <ClCompile Include="src\engine\graphics\windows\Graphics.cpp" />
     <ClCompile Include="src\common\core\ecs\SystemBase.cpp" />
     <ClCompile Include="src\common\core\ecs\World.cpp" />

@@ -50,14 +50,14 @@ namespace NextLevel
 			{
 				if (!ExistEntity(_entity)) return;
 
-				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Idntifier);
+				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
 				EntityInfo& entityInfo = m_vEntities[entityIndex].second.first;
 
 				m_pWorld->m_ChunkList[entityInfo.first].DestroyEntity(entityInfo.second);
 
 				utils::SetVersion(
-					m_vEntities[entityIndex].second.second.m_Idntifier,
-					utils::GetVersion(m_vEntities[entityIndex].second.second.m_Idntifier)
+					m_vEntities[entityIndex].second.second.m_Identifier,
+					utils::GetVersion(m_vEntities[entityIndex].second.second.m_Identifier)
 				);
 
 				m_vRecycleEntityIndices.push_back(entityIndex);
@@ -70,9 +70,9 @@ namespace NextLevel
 			*/
 			inline const bool ExistEntity(const Entity& _entity)
 			{
-				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Idntifier);
-				return _entity.m_Idntifier
-					== m_vEntities[entityIndex].second.second.m_Idntifier;
+				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
+				return _entity.m_Identifier
+					== m_vEntities[entityIndex].second.second.m_Identifier;
 			}
 
 			/**
@@ -84,7 +84,7 @@ namespace NextLevel
 			{
 				if (!ExistEntity(_entity)) return;
 
-				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Idntifier);
+				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
 				EntityInfo entityInfo = m_vEntities[entityIndex].first;
 				auto newArchetype =
 					m_pWorld->m_ChunkList[entityInfo.first].GetArchetype();
@@ -110,7 +110,7 @@ namespace NextLevel
 			{
 				if (!ExistEntity(_entity)) return;
 
-				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Idntifier);
+				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
 				EntityInfo& entityInfo = m_vEntities[entityIndex].first;
 				Archetype newArchetype =
 					m_pWorld->m_ChunkList[entityInfo.first].GetArchetype();
@@ -136,7 +136,7 @@ namespace NextLevel
 			{
 				if (!ExistEntity(_entity)) return;
 
-				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Idntifier);
+				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
 				EntityInfo& entityInfo = m_vEntities[entityIndex].first;
 
 				m_pWorld->m_ChunkList[entityInfo.first].SetComponentData(
@@ -154,7 +154,7 @@ namespace NextLevel
 			{
 				if (!ExistEntity(_entity)) return nullptr;
 
-				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Idntifier);
+				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
 				EntityInfo& entityInfo = m_vEntities[entityIndex].first;
 				Chunk* chunk = m_pWorld->m_ChunkList[entityInfo.first];
 				return chunk->GetComponentList<CompT>()[entityInfo.second];
@@ -199,6 +199,37 @@ namespace NextLevel
 
 				m_pWorld->m_ChunkList.push_back(Chunk(_archetype));
 				return chunkIndex;
+			}
+
+			/**
+			* @brief エンティティ配列を取得します。
+			* @return std::vector<std::pair<std::string, std::pair<EntityInfo, Entity>>> エンティティ配列。
+			*/
+			std::vector<std::pair<std::string, std::pair<EntityInfo, Entity>>>& GetEntities()
+			{
+				return m_vEntities;
+			}
+
+			/**
+			* @brief 指定されたエンティティの名前を変更します。
+			* @param _entity 名前を変更するエンティティ。
+			* @param _newName 設定する名前。
+			*/
+			inline void ChangeName(const Entity& _entity, const std::string& _newName)
+			{
+				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
+				m_vEntities[entityIndex].first = _newName;
+			}
+
+			/**
+			* @brief 指定されたエンティティのアーキタイプを取得します。
+			* @param _entity アーキタイプを取得するエンティティ。
+			* @return Archetype 指定のエンティティのアーキタイプ。
+			*/
+			Archetype GetArchetype(const Entity& _entity)
+			{
+				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
+				return m_pWorld->m_ChunkList[m_vEntities[entityIndex].second.first.first].GetArchetype();
 			}
 
 		private:
@@ -248,7 +279,7 @@ namespace NextLevel
 				if (m_vRecycleEntityIndices.size() != 0)
 					std::abort();
 
-				std::string name = "Empty";
+				std::string name = "Entity";
 				name = NameSetting(name, 0);
 
 				m_vEntities.push_back(
@@ -274,9 +305,9 @@ namespace NextLevel
 					std::abort();
 				std::uint32_t index = m_vRecycleEntityIndices[0];
 				m_vRecycleEntityIndices.erase(m_vRecycleEntityIndices.begin());
-				std::uint32_t version = utils::GetVersion(m_vEntities[index].second.second.m_Idntifier);
+				std::uint32_t version = utils::GetVersion(m_vEntities[index].second.second.m_Identifier);
 				version++;
-				utils::SetVersion(m_vEntities[index].second.second.m_Idntifier, version);
+				utils::SetVersion(m_vEntities[index].second.second.m_Identifier, version);
 				return std::pair<std::uint32_t, std::uint32_t>(index, version);
 			}
 

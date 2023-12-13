@@ -127,6 +127,10 @@
     <ClInclude Include="src\common\core\resource\model\ModelData.h" />
     <ClInclude Include="src\common\core\utils\CreateTexture.h" />
     <ClInclude Include="src\common\core\ecs\WorldManager.h" />
+    <ClInclude Include="src\engine\editor\windows\SceneGraphEditor.h" />
+    <ClInclude Include="src\engine\editor\Selectable.h" />
+    <ClInclude Include="src\engine\editor\windows\InspectorEditor.h" />
+    <ClInclude Include="src\engine\editor\windows\HierarchyEditor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\core\Application.cpp">
@@ -185,6 +189,9 @@
     <ClCompile Include="src\common\core\resource\shader\ShaderData.cpp" />
     <ClCompile Include="src\common\core\resource\model\ModelData.cpp" />
     <ClCompile Include="src\common\core\utils\CreateTexture.cpp" />
+    <ClCompile Include="src\engine\editor\windows\SceneGraphEditor.cpp" />
+    <ClCompile Include="src\engine\editor\windows\InspectorEditor.cpp" />
+    <ClCompile Include="src\engine\editor\windows\HierarchyEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\common\Common.hlsli" />
