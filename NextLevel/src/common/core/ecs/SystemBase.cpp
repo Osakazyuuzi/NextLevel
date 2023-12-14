@@ -1,5 +1,8 @@
 #include "SystemBase.h"
+
 #include "World.h"
+#include "EntityManager.h"
+#include "Chunk.h"
 
 namespace NextLevel
 {
