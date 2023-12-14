@@ -25,7 +25,8 @@ namespace NextLevel
 			// ¯•Êq”»’è
 			if (!strstr(_fileName, ".cso")) return false;
 			// ‘¶İ”»’è
-			if (stat(_fileName, nullptr) != 0) return false;
+			struct stat buffer;
+			if (stat(_fileName, &buffer) != 0) return false;
 
 			m_szFileName = _fileName;
 			m_enKind = _kind;

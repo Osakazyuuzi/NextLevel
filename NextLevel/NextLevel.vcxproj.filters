@@ -131,6 +131,12 @@
     <ClInclude Include="src\engine\editor\Selectable.h" />
     <ClInclude Include="src\engine\editor\windows\InspectorEditor.h" />
     <ClInclude Include="src\engine\editor\windows\HierarchyEditor.h" />
+    <ClInclude Include="src\common\core\ecs\component\CTransform.h" />
+    <ClInclude Include="src\common\core\ecs\component\CCamera.h" />
+    <ClInclude Include="src\common\core\ecs\component\CMeshRenderer.h" />
+    <ClInclude Include="src\common\core\utils\DXOperator.h" />
+    <ClInclude Include="src\common\core\ecs\system\SMeshRenderer.h" />
+    <ClInclude Include="src\common\core\resource\model\ModelManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\core\Application.cpp">
@@ -192,12 +198,16 @@
     <ClCompile Include="src\engine\editor\windows\SceneGraphEditor.cpp" />
     <ClCompile Include="src\engine\editor\windows\InspectorEditor.cpp" />
     <ClCompile Include="src\engine\editor\windows\HierarchyEditor.cpp" />
+    <ClCompile Include="src\common\core\ecs\system\SMeshRenderer.cpp" />
+    <ClCompile Include="src\common\core\resource\shader\ShaderManager.cpp" />
+    <ClCompile Include="src\common\core\resource\material\MaterialManager.cpp" />
+    <ClCompile Include="src\common\core\resource\model\ModelManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader\common\Common.hlsli" />
+    <None Include="hlsl\common\Common.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shader\pixel\PS_Default.hlsl" />
-    <FxCompile Include="shader\vertex\VS_Default.hlsl" />
+    <FxCompile Include="hlsl\pixel\PS_Default.hlsl" />
+    <FxCompile Include="hlsl\vertex\VS_Default.hlsl" />
   </ItemGroup>
 </Project>

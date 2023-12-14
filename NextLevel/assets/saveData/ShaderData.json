@@ -1,0 +1,10 @@
+{
+    "assets/cso/PS_Default.cso": {
+        "ID": 2,
+        "Kind": 1
+    },
+    "assets/cso/VS_Default.cso": {
+        "ID": 1,
+        "Kind": 0
+    }
+}

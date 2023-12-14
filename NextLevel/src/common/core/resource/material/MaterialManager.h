@@ -40,6 +40,21 @@ namespace NextLevel
 				return instance;
 			}
 
+		private:
+			//! セーブファイル名
+			static constexpr const char* SAVE_FILENAME = "assets/saveData/MaterialData.json";
+
+		public:
+			/**
+			* @brief Jsonファイルにデータを保存します。
+			*/
+			void SaveToJson();
+
+			/**
+			* @brief Jsonファイルからデータを読み込みます。
+			*/
+			void LoadFromJson();
+
 		public:
 			/**
 			* @brief マテリアルを新規作成します。

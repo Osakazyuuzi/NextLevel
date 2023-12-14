@@ -40,9 +40,6 @@ namespace NextLevel
 			// プリミティブトポロジ設定
 			graphics::Graphics::GetInstance().GetRenderContext()->SetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-			// マテリアル設定
-			graphics::Graphics::GetInstance().GetRenderContext()->SetMaterial(*(MaterialManager::GetInstance().GetMaterialData(m_MaterialID).value().get()));
-
 			for (unsigned int m = 0; m < m_AiScene->mNumMeshes; m++)
 			{
 				aiMesh* mesh = m_AiScene->mMeshes[m];

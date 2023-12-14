@@ -8,6 +8,10 @@
 #include "src/engine/graphics/windows/Graphics.h"
 #include "src/engine/editor/windows/EditorManager.h"
 
+#include "src/common/core/resource/shader/ShaderManager.h"
+#include "src/common/core/resource/material/MaterialManager.h"
+#include "src/common/core/resource/model/ModelManager.h"
+
 #include "third_party/ImGui/imgui.h"
 #include "third_party/ImGui/imgui_impl_dx11.h"
 #include "third_party/ImGui/imgui_impl_win32.h"
@@ -22,15 +26,27 @@ namespace NextLevel
 	*/
 	void Application::Init()
 	{
+		// ウィンドウの初期化
 		m_window = WindowManager::CreateWindowInstanceForPlatform();
 		m_window->Create(1280, 720, "NextLevel");
 
+		// グラフィックスの初期化
 		graphics::Graphics::GetInstance().Startup(dynamic_cast<WindowsWindow*>
 			(m_window.get())->GetWindowHandle(), m_window->GetWidth(), m_window->GetHeight());
 
+		// エディタの初期化
 		EditorManager::GetInstance().Startup(dynamic_cast<WindowsWindow*>
 			(m_window.get())->GetWindowHandle());
 
+		// シェーダーマネージャーのセーブデータ読み込み
+		resource::ShaderManager::GetInstance().LoadFromJson();
+		// マテリアルマネージャーのセーブデータ読み込み
+		resource::MaterialManager::GetInstance().LoadFromJson();
+		// モデルマネージャーのセーブデータ読み込み
+		resource::ModelManager::GetInstance().LoadFromJson();
+
+
+		// 分解能
 		timeBeginPeriod(1);
 	}
 

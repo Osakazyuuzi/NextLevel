@@ -42,12 +42,27 @@ namespace NextLevel
 				return instance;
 			}
 
+		private:
+			//! セーブファイル名
+			static constexpr const char* SAVE_FILENAME = "assets/saveData/ShaderData.json";
+
+		public:
+			/**
+			* @brief Jsonファイルにデータを保存します。
+			*/
+			void SaveToJson();
+
+			/**
+			* @brief Jsonファイルからデータを読み込みます。
+			*/
+			void LoadFromJson();
+
 		public:
 			/**
 			* @brief シェーダーIDを取得します。。未読み込みであればロードします。
 			* @param _kind シェーダーの種類。
 			* @param _fileName シェーダーのファイル名。
-			* @return int シェーダーに割り当てられたID。
+			* @return std::optional<int> シェーダーに割り当てられたID。
 			*/
 			std::optional<int> GetAndLoadShaderID(ShaderData::EnKind _kind, std::string _fileName)
 			{

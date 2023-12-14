@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -105,7 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)/third_party;$(ProjectDir)/third_party/Assimp/include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)/third_party;$(ProjectDir)\third_party\Eigen;$(ProjectDir)/third_party/Assimp/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -113,6 +113,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)/third_party;$(ProjectDir)\third_party\Assimp\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Link>
+    <FxCompile>
+      <ObjectFileOutput>$(ProjectDir)assets\cso\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -123,7 +126,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)/third_party;$(ProjectDir)/third_party/Assimp/include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)/third_party;$(ProjectDir)\third_party\Eigen;$(ProjectDir)/third_party/Assimp/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -133,9 +136,18 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)/third_party;$(ProjectDir)\third_party\Assimp\lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Link>
+    <FxCompile>
+      <ObjectFileOutput>$(ProjectDir)assets\cso\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\core\ecs\component\CCamera.h" />
+    <ClInclude Include="src\common\core\ecs\component\CMeshRenderer.h" />
+    <ClInclude Include="src\common\core\ecs\component\CTransform.h" />
+    <ClInclude Include="src\common\core\ecs\system\SMeshRenderer.h" />
     <ClInclude Include="src\common\core\ecs\WorldManager.h" />
+    <ClInclude Include="src\common\core\resource\model\ModelManager.h" />
+    <ClInclude Include="src\common\core\utils\DXOperator.h" />
     <ClInclude Include="src\common\core\resource\material\MaterialData.h" />
     <ClInclude Include="src\common\core\resource\material\MaterialManager.h" />
     <ClInclude Include="src\common\core\resource\model\ModelData.h" />
@@ -180,8 +192,12 @@
     <ClInclude Include="third_party\ImGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\core\ecs\system\SMeshRenderer.cpp" />
+    <ClCompile Include="src\common\core\resource\material\MaterialManager.cpp" />
     <ClCompile Include="src\common\core\resource\model\ModelData.cpp" />
+    <ClCompile Include="src\common\core\resource\model\ModelManager.cpp" />
     <ClCompile Include="src\common\core\resource\shader\ShaderData.cpp" />
+    <ClCompile Include="src\common\core\resource\shader\ShaderManager.cpp" />
     <ClCompile Include="src\common\core\resource\texture\TextureData.cpp" />
     <ClCompile Include="src\common\core\utils\CreateTexture.cpp" />
     <ClCompile Include="src\engine\editor\windows\EditorManager.cpp" />
@@ -207,19 +223,19 @@
     <ClCompile Include="src\common\core\utils\TypeInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader\common\Common.hlsli">
+    <None Include="hlsl\common\Common.hlsli">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shader\pixel\PS_Default.hlsl">
+    <FxCompile Include="hlsl\pixel\PS_Default.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="shader\vertex\VS_Default.hlsl">
+    <FxCompile Include="hlsl\vertex\VS_Default.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
