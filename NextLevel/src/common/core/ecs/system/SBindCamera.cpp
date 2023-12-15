@@ -38,17 +38,17 @@ namespace NextLevel
 							//=== 行列の算出
 							// ビュー行列の算出
 							_camera.m_ViewMat =
-								Convert(CalcViewMatrix(_transform));
+								CalcViewMatrix(_transform);
 							// プロジェクション行列の算出
 							_camera.m_ProjMat =
-								Convert(CalcProjectionMatrix(_camera));
+								CalcProjectionMatrix(_camera);
 
 							//=== 定数バッファへの書き込み
 							// ビュー行列の書き込み
 							CBufWriteViewMatrix(
-								Convert(_camera.m_ViewMat));
+								&_camera.m_ViewMat);
 							CBufWriteProjectionMatrix(
-								Convert(_camera.m_ProjMat));
+								&_camera.m_ProjMat);
 						});
 			}
 
@@ -66,9 +66,9 @@ namespace NextLevel
 			/**
 			* @brief Cameraからビュー行列を算出します。
 			* @param _transform 形状データ。
-			* @return DirectX::XMMATRIX ビュー行列。
+			* @return DirectX::XMFLOAT4X4 ビュー行列。
 			*/
-			DirectX::XMMATRIX SBindCamera::CalcViewMatrix(component::CTransform _transform)
+			DirectX::XMFLOAT4X4 SBindCamera::CalcViewMatrix(component::CTransform _transform)
 			{
 				DirectX::XMFLOAT4X4 viewMat;
 
@@ -112,15 +112,15 @@ namespace NextLevel
 						DirectX::XMLoadFloat3(&up)
 					));
 
-				return DirectX::XMLoadFloat4x4(&viewMat);
+				return viewMat;
 			}
 
 			/**
 			* @brief Cameraからプロジェクション行列を算出します。
 			* @param _camera カメラデータ。
-			* @return DirectX::XMMATRIX プロジェクション行列。
+			* @return DirectX::XMFLOAT4X4 プロジェクション行列。
 			*/
-			DirectX::XMMATRIX SBindCamera::CalcProjectionMatrix(component::CCamera _camera)
+			DirectX::XMFLOAT4X4 SBindCamera::CalcProjectionMatrix(component::CCamera _camera)
 			{
 				DirectX::XMFLOAT4X4 projMat;
 
@@ -133,35 +133,27 @@ namespace NextLevel
 						_camera.m_fFarClip
 					));
 
-				return DirectX::XMLoadFloat4x4(&projMat);
+				return projMat;
 			}
 
 			/**
 			* @brief ビュー行列を定数バッファに書き込みます。
 			* @param _viewMat ビュー行列。
 			*/
-			void SBindCamera::CBufWriteViewMatrix(DirectX::XMMATRIX _viewMat)
+			void SBindCamera::CBufWriteViewMatrix(DirectX::XMFLOAT4X4* _viewMat)
 			{
-				DirectX::XMFLOAT4X4 viewMat;
-
-				DirectX::XMStoreFloat4x4(&viewMat, _viewMat);
-
 				graphics::Graphics::GetInstance().GetRenderContext()
-					->SetViewMatrix(&viewMat);
+					->SetViewMatrix(_viewMat);
 			}
 
 			/**
 			* @brief プロジェクション行列を定数バッファに書き込みます。
 			* @param _projMat プロジェクション行列。
 			*/
-			void SBindCamera::CBufWriteProjectionMatrix(DirectX::XMMATRIX _projMat)
+			void SBindCamera::CBufWriteProjectionMatrix(DirectX::XMFLOAT4X4* _projMat)
 			{
-				DirectX::XMFLOAT4X4 projMat;
-
-				DirectX::XMStoreFloat4x4(&projMat, _projMat);
-
 				graphics::Graphics::GetInstance().GetRenderContext()
-					->SetProjectionMatrix(&projMat);
+					->SetProjectionMatrix(_projMat);
 			}
 		}
 	}

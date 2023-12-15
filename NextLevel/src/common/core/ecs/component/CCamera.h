@@ -2,7 +2,7 @@
 #define ___SRC_COMMON_CORE_ECS_COMPONENT_CCAMERA_H___
 
 #include "../IComponentData.h"
-#include <Eigen/Dense>
+#include <DirectXMath.h>
 
 namespace NextLevel
 {
@@ -16,8 +16,8 @@ namespace NextLevel
 				float m_fFarClip = 1000.0f;
 				float m_fFovy = 60.0f;
 				float m_fAspect = 16.0f / 9.0f;
-				Eigen::Matrix4f m_ViewMat;
-				Eigen::Matrix4f m_ProjMat;
+				DirectX::XMFLOAT4X4 m_ViewMat;
+				DirectX::XMFLOAT4X4 m_ProjMat;
 			};
 		}
 	}

@@ -1,5 +1,5 @@
-#ifndef ___SRC_COMMON_CORE_ECS_SYSTEM_SBINDCAMERA_H___
-#define ___SRC_COMMON_CORE_ECS_SYSTEM_SBINDCAMERA_H___
+#ifndef ___SRC_COMMON_CORE_ECS_SYSTEM_SBINDDEBUGCAMERA_H___
+#define ___SRC_COMMON_CORE_ECS_SYSTEM_SBINDDEBUGCAMERA_H___
 
 #include "../SystemBase.h"
 
@@ -11,19 +11,18 @@ namespace NextLevel
 	{
 		namespace component
 		{
-			class CCamera;
-			class CTransform;
+			class CDebugCamera;
 		}
 
 		namespace system
 		{
-			class SBindCamera : public SystemBase {
+			class SBindDebugCamera : public SystemBase {
 			public:
 				/**
 				* @brief コンストラクタ。
 				* @param _pWorld ワールドポインタ。
 				*/
-				SBindCamera(World* _pWorld)
+				SBindDebugCamera(World* _pWorld)
 					: SystemBase(_pWorld)
 				{}
 
@@ -45,17 +44,17 @@ namespace NextLevel
 
 				/**
 				* @brief Cameraからビュー行列を算出します。
-				* @param _transform 形状データ。
+				* @param _camera カメラデータ。
 				* @return DirectX::XMFLOAT4X4 ビュー行列。
 				*/
-				DirectX::XMFLOAT4X4 CalcViewMatrix(component::CTransform _transform);
+				DirectX::XMFLOAT4X4 CalcViewMatrix(component::CDebugCamera _camera);
 
 				/**
 				* @brief Cameraからプロジェクション行列を算出します。
 				* @param _camera カメラデータ。
 				* @return DirectX::XMFLOAT4X4 プロジェクション行列。
 				*/
-				DirectX::XMFLOAT4X4 CalcProjectionMatrix(component::CCamera _camera);
+				DirectX::XMFLOAT4X4 CalcProjectionMatrix(component::CDebugCamera _camera);
 
 				/**
 				* @brief ビュー行列を定数バッファに書き込みます。
@@ -73,4 +72,4 @@ namespace NextLevel
 	}
 }
 
-#endif //!___SRC_COMMON_CORE_ECS_SYSTEM_SBINDCAMERA_H___
+#endif //!___SRC_COMMON_CORE_ECS_SYSTEM_SBINDDEBUGCAMERA_H___

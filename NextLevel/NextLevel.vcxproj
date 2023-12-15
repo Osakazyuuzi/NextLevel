@@ -142,9 +142,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\common\core\ecs\component\CCamera.h" />
+    <ClInclude Include="src\common\core\ecs\component\CDebugCamera.h" />
     <ClInclude Include="src\common\core\ecs\component\CMeshRenderer.h" />
     <ClInclude Include="src\common\core\ecs\component\CTransform.h" />
+    <ClInclude Include="src\common\core\ecs\system\SOperationDebugCamera.h" />
     <ClInclude Include="src\common\core\ecs\system\SBindCamera.h" />
+    <ClInclude Include="src\common\core\ecs\system\SBindDebugCamera.h" />
     <ClInclude Include="src\common\core\ecs\system\SMeshRenderer.h" />
     <ClInclude Include="src\common\core\ecs\WorldManager.h" />
     <ClInclude Include="src\common\core\resource\model\ModelManager.h" />
@@ -177,6 +180,7 @@
     <ClInclude Include="src\common\core\ecs\Utils.h" />
     <ClInclude Include="src\common\core\ecs\World.h" />
     <ClInclude Include="src\common\core\Application.h" />
+    <ClInclude Include="src\engine\input\windows\Input.h" />
     <ClInclude Include="src\platform\WindowManager.h" />
     <ClInclude Include="src\platform\windows\WindowsWindow.h" />
     <ClInclude Include="src\engine\graphics\windows\low_level\DepthStencil.h" />
@@ -193,7 +197,9 @@
     <ClInclude Include="third_party\ImGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\core\ecs\system\SOperationDebugCamera.cpp" />
     <ClCompile Include="src\common\core\ecs\system\SBindCamera.cpp" />
+    <ClCompile Include="src\common\core\ecs\system\SBindDebugCamera.cpp" />
     <ClCompile Include="src\common\core\ecs\system\SMeshRenderer.cpp" />
     <ClCompile Include="src\common\core\resource\material\MaterialManager.cpp" />
     <ClCompile Include="src\common\core\resource\model\ModelData.cpp" />
@@ -213,6 +219,7 @@
     <ClCompile Include="src\engine\graphics\windows\low_level\DepthStencil.cpp" />
     <ClCompile Include="src\engine\graphics\windows\low_level\RenderContext.cpp" />
     <ClCompile Include="src\engine\graphics\windows\low_level\RenderTarget.cpp" />
+    <ClCompile Include="src\engine\input\windows\Input.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\platform\WindowManager.cpp" />
     <ClCompile Include="src\platform\windows\WindowsWindow.cpp" />

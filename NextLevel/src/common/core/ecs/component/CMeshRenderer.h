@@ -12,7 +12,7 @@ namespace NextLevel
 		{
 			struct CMeshRenderer : public IComponentData
 			{
-				int m_modelId = 1;
+				int m_modelId = 0;
 				int m_materialId = 0;
 				int m_vertexShaderId = 1;
 				int m_pixelShaderId = 2;
