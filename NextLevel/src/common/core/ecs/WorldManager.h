@@ -83,6 +83,7 @@ namespace NextLevel
 				// V‹Kì¬
 				m_worldMap[name] = std::make_shared<World>();
 				m_worldMap[name]->SetName(name);
+				m_worldMap[name]->Init();
 
 				return m_worldMap[name];
 			}

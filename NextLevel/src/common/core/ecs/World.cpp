@@ -3,6 +3,14 @@
 #include "EntityManager.h"
 #include "SystemBase.h"
 
+#include "system/SBindCamera.h"
+#include "system/SMeshRenderer.h"
+
+#include "component/CTransform.h"
+#include "component/CCamera.h"
+
+#include "EntityManager.h"
+
 namespace NextLevel
 {
 	namespace ecs
@@ -10,6 +18,19 @@ namespace NextLevel
 		World::World()
 		{
 			m_pEntityManager = std::make_shared<EntityManager>(this);
+		}
+
+		void World::Init()
+		{
+			// 初期カメラを作成
+			Entity camera = m_pEntityManager->CreateEntity();
+			m_pEntityManager->AddComponent<component::CCamera>(camera);
+
+			// レンダリングパイプラインを構築
+			m_RenderSystemList.push_back(std::make_shared<system::SBindCamera>(this));
+			m_RenderSystemList.back()->Init();
+			m_RenderSystemList.push_back(std::make_shared<system::SMeshRenderer>(this)); // 通常描画
+			m_RenderSystemList.back()->Init();
 		}
 
 		/**
@@ -32,13 +53,9 @@ namespace NextLevel
 		*/
 		void World::Draw()
 		{
-			for (auto systems : m_SystemList)
-			{
-				for (auto&& system : systems)
-				{
-					system->Draw();
-				}
-			}
+			// レンダリング実行
+			for (auto system : m_RenderSystemList)
+				system->Draw();
 		}
 	}
 }

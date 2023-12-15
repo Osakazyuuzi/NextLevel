@@ -19,6 +19,11 @@ namespace NextLevel
 			//~World();
 
 			/**
+			* @brief 初期化処理を行います。
+			*/
+			void Init();
+
+			/**
 			* @brief 更新処理を行います。
 			* @param _deltaTime 前フレームからの経過時間。
 			*/
@@ -73,6 +78,7 @@ namespace NextLevel
 		private:
 			std::vector<Chunk> m_ChunkList;
 			std::vector<std::vector<std::shared_ptr<SystemBase>>> m_SystemList;
+			std::vector<std::shared_ptr<SystemBase>> m_RenderSystemList;
 			std::shared_ptr<EntityManager> m_pEntityManager;
 			std::string m_szName;
 		};
