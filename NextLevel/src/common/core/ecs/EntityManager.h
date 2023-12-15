@@ -11,6 +11,11 @@ namespace NextLevel
 {
 	namespace ecs
 	{
+		namespace component
+		{
+			class CTransform;
+		}
+
 		/**
 		* @class EntityManager
 		* @brief エンティティの作成、破棄などの管理、
@@ -38,7 +43,7 @@ namespace NextLevel
 			inline Entity CreateEntity()
 			{
 				Archetype archetype;
-				// archetype.AddType<Transform>();
+				archetype.AddType<component::CTransform>();
 				return CreateEntity(archetype);
 			}
 
@@ -85,7 +90,7 @@ namespace NextLevel
 				if (!ExistEntity(_entity)) return;
 
 				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
-				EntityInfo entityInfo = m_vEntities[entityIndex].first;
+				EntityInfo entityInfo = m_vEntities[entityIndex].second.first;
 				auto newArchetype =
 					m_pWorld->m_ChunkList[entityInfo.first].GetArchetype();
 				newArchetype.AddType<CompT>();
@@ -98,7 +103,7 @@ namespace NextLevel
 				m_pWorld->m_ChunkList[entityInfo.first].MoveEntity(
 					chunkInIndex, _entity, chunk
 				);
-				m_vEntities[entityIndex].first = std::pair<ChunkIndex, ChunkInIndex>(newChunkIndex, chunkInIndex);
+				m_vEntities[entityIndex].second.first = std::pair<ChunkIndex, ChunkInIndex>(newChunkIndex, chunkInIndex);
 			}
 
 			/**
@@ -111,7 +116,7 @@ namespace NextLevel
 				if (!ExistEntity(_entity)) return;
 
 				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
-				EntityInfo& entityInfo = m_vEntities[entityIndex].first;
+				EntityInfo& entityInfo = m_vEntities[entityIndex].second.first;
 				Archetype newArchetype =
 					m_pWorld->m_ChunkList[entityInfo.first].GetArchetype();
 				newArchetype.RemoveType<CompT>();
@@ -137,7 +142,7 @@ namespace NextLevel
 				if (!ExistEntity(_entity)) return;
 
 				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
-				EntityInfo& entityInfo = m_vEntities[entityIndex].first;
+				EntityInfo& entityInfo = m_vEntities[entityIndex].second.first;
 
 				m_pWorld->m_ChunkList[entityInfo.first].SetComponentData(
 					entityInfo.second, _data
@@ -155,7 +160,7 @@ namespace NextLevel
 				if (!ExistEntity(_entity)) return nullptr;
 
 				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
-				EntityInfo& entityInfo = m_vEntities[entityIndex].first;
+				EntityInfo& entityInfo = m_vEntities[entityIndex].second.first;
 				Chunk* chunk = m_pWorld->m_ChunkList[entityInfo.first];
 				return chunk->GetComponentList<CompT>()[entityInfo.second];
 			}
