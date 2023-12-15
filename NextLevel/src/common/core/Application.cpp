@@ -7,6 +7,7 @@
 #include "src/platform/windows/WindowsWindow.h"
 #include "src/engine/graphics/windows/Graphics.h"
 #include "src/engine/editor/windows/EditorManager.h"
+#include "src/common/core/ecs/WorldManager.h"
 
 #include "src/common/core/resource/shader/ShaderManager.h"
 #include "src/common/core/resource/material/MaterialManager.h"
@@ -93,8 +94,11 @@ namespace NextLevel
 			180.0f / 255.0f);
 		EditorManager::GetInstance().BeginRender();
 
+		ecs::WorldManager::GetInstance().Update(_deltaTime);
+
 		EditorManager::GetInstance().Draw();
 
+		ecs::WorldManager::GetInstance().Draw();
 
 		EditorManager::GetInstance().EndRender();
 		graphics::Graphics::GetInstance().EndRender();
