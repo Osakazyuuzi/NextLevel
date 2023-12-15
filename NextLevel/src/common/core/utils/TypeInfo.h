@@ -33,11 +33,9 @@ namespace NextLevel
 			*/
 			static inline void Register()
 			{
-				if (TypeInfo<T>::m_Id == 0)
-				{
-					TypeInfo<T>::m_Id = TypeManager::m_NextId++;
-					TypeInfo<T>::m_szName = typeid(T).name();
-				}
+				std::lock_guard<std::mutex> lock(m_Mutex);
+				TypeInfo<T>::m_Id = TypeManager::m_NextId++;
+				TypeInfo<T>::m_szName = typeid(T).name();
 			}
 
 		public:
@@ -48,8 +46,8 @@ namespace NextLevel
 			*/
 			static inline const std::size_t& GetID()
 			{
-				std::lock_guard<std::mutex> lock(m_Mutex);
-				Register();
+				if (TypeInfo<T>::m_Id == 0) Register();
+
 				return m_Id;
 			}
 
@@ -59,8 +57,7 @@ namespace NextLevel
 			*/
 			static inline const std::string& GetName()
 			{
-				std::lock_guard<std::mutex> lock(m_Mutex);
-				Register();
+				if (TypeInfo<T>::m_Id == 0) Register();
 				return m_szName;
 			}
 		};

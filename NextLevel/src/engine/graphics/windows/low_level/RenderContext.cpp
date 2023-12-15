@@ -28,7 +28,7 @@ namespace NextLevel
 				for (int i = 0; i < 3; ++i)
 				{
 					rasterizer.CullMode = cull[i];
-					hr = graphics::Graphics::GetInstance().GetDevice()->CreateRasterizerState(&rasterizer, &m_pRasterizerState[i]);
+					hr = graphics::Graphics::GetInstance().GetDevice()->CreateRasterizerState(&rasterizer, m_pRasterizerState[i].GetAddressOf());
 					if (FAILED(hr)) {
 						// エラー出力
 						MessageBox(nullptr, "Error:InitCullingMode", "Error", MB_ICONERROR | MB_OK);
@@ -44,9 +44,9 @@ namespace NextLevel
 				depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 				depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 				depthStencilDesc.StencilEnable = FALSE;
-				graphics::Graphics::GetInstance().GetDevice()->CreateDepthStencilState(&depthStencilDesc, &m_pDepthState[enDEPTH_ON]);//深度有効ステート
+				graphics::Graphics::GetInstance().GetDevice()->CreateDepthStencilState(&depthStencilDesc, m_pDepthState[enDEPTH_ON].GetAddressOf());//深度有効ステート
 				depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-				graphics::Graphics::GetInstance().GetDevice()->CreateDepthStencilState(&depthStencilDesc, &m_pDepthState[enDEPTH_OFF]);//深度無効ステート
+				graphics::Graphics::GetInstance().GetDevice()->CreateDepthStencilState(&depthStencilDesc, m_pDepthState[enDEPTH_OFF].GetAddressOf());//深度無効ステート
 				SetDepthMode(enDEPTH_ON);
 
 				//=== アルファブレンディング
@@ -72,7 +72,7 @@ namespace NextLevel
 				{
 					blendDesc.RenderTarget[0].SrcBlend = blend[i][0];
 					blendDesc.RenderTarget[0].DestBlend = blend[i][1];
-					hr = graphics::Graphics::GetInstance().GetDevice()->CreateBlendState(&blendDesc, &m_pBlendState[i]);
+					hr = graphics::Graphics::GetInstance().GetDevice()->CreateBlendState(&blendDesc, m_pBlendState[i].GetAddressOf());
 					if (FAILED(hr)) {
 						// エラー出力
 						MessageBox(nullptr, "Error:InitBlendMode", "Error", MB_ICONERROR | MB_OK);
@@ -94,7 +94,7 @@ namespace NextLevel
 				for (int i = 0; i < enSAMPLER_MAX; ++i)
 				{
 					samplerDesc.Filter = filter[i];
-					hr = graphics::Graphics::GetInstance().GetDevice()->CreateSamplerState(&samplerDesc, &m_pSamplerState[i]);
+					hr = graphics::Graphics::GetInstance().GetDevice()->CreateSamplerState(&samplerDesc, m_pSamplerState[i].GetAddressOf());
 					if (FAILED(hr)) {
 						// エラー出力
 						MessageBox(nullptr, "Error:InitSamplerStateMode", "Error", MB_ICONERROR | MB_OK);
@@ -114,24 +114,24 @@ namespace NextLevel
 				bufferDesc.StructureByteStride = sizeof(float);
 
 				// ワールドマトリクス
-				graphics::Graphics::GetInstance().GetDevice()->CreateBuffer(&bufferDesc, NULL, &m_pConstantBuffers[0]);
-				graphics::Graphics::GetInstance().GetDeviceContext()->VSSetConstantBuffers(0, 1, &m_pConstantBuffers[0]);
+				graphics::Graphics::GetInstance().GetDevice()->CreateBuffer(&bufferDesc, NULL, m_pConstantBuffers[0].GetAddressOf());
+				graphics::Graphics::GetInstance().GetDeviceContext()->VSSetConstantBuffers(0, 1, m_pConstantBuffers[0].GetAddressOf());
 
 				// ビューマトリクス
-				graphics::Graphics::GetInstance().GetDevice()->CreateBuffer(&bufferDesc, NULL, &m_pConstantBuffers[1]);
-				graphics::Graphics::GetInstance().GetDeviceContext()->VSSetConstantBuffers(1, 1, &m_pConstantBuffers[1]);
+				graphics::Graphics::GetInstance().GetDevice()->CreateBuffer(&bufferDesc, NULL, m_pConstantBuffers[1].GetAddressOf());
+				graphics::Graphics::GetInstance().GetDeviceContext()->VSSetConstantBuffers(1, 1, m_pConstantBuffers[1].GetAddressOf());
 
 				// プロジェクションマトリクス
-				graphics::Graphics::GetInstance().GetDevice()->CreateBuffer(&bufferDesc, NULL, &m_pConstantBuffers[2]);
-				graphics::Graphics::GetInstance().GetDeviceContext()->VSSetConstantBuffers(2, 1, &m_pConstantBuffers[2]);
+				graphics::Graphics::GetInstance().GetDevice()->CreateBuffer(&bufferDesc, NULL, m_pConstantBuffers[2].GetAddressOf());
+				graphics::Graphics::GetInstance().GetDeviceContext()->VSSetConstantBuffers(2, 1, m_pConstantBuffers[2].GetAddressOf());
 
 				//// サイズを設定
-				//bufferDesc.ByteWidth = sizeof(Material);
+				bufferDesc.ByteWidth = sizeof(resource::MaterialData);
 
-				//// マテリアル
-				//g_graphics->GetDevice()->CreateBuffer(&bufferDesc, NULL, &m_constantBuffers[3]);
-				//g_graphics->GetContext()->VSSetConstantBuffers(3, 1, &m_constantBuffers[3]);
-				//g_graphics->GetContext()->PSSetConstantBuffers(3, 1, &m_constantBuffers[3]);
+				// マテリアル
+				graphics::Graphics::GetInstance().GetDevice()->CreateBuffer(&bufferDesc, NULL, m_pConstantBuffers[3].GetAddressOf());
+				graphics::Graphics::GetInstance().GetDeviceContext()->VSSetConstantBuffers(3, 1, m_pConstantBuffers[3].GetAddressOf());
+				graphics::Graphics::GetInstance().GetDeviceContext()->PSSetConstantBuffers(3, 1, m_pConstantBuffers[3].GetAddressOf());
 			}
 
 			/*
@@ -150,42 +150,30 @@ namespace NextLevel
 					m_pRasterizerState[i].Reset();
 			}
 
+			/*
+			[関数概要]
+			頂点バッファを設定する
+
+			[引数]
+			ID3D11Buffer*	vtxBuf	頂点バッファ
+			*/
 			void RenderContext::SetVertexBuffer(Microsoft::WRL::ComPtr<ID3D11Buffer> _vtxBuf, UINT _stride)
 			{
 				UINT offset = 0;
-				graphics::Graphics::GetInstance().GetDeviceContext()->IASetVertexBuffers(0, 1, &_vtxBuf, &_stride, &offset);
+				graphics::Graphics::GetInstance().GetDeviceContext()->IASetVertexBuffers(0, 1, _vtxBuf.GetAddressOf(), &_stride, &offset);
 			}
 
+			/*
+			[関数概要]
+			インデックスバッファを設定する
+
+			[引数]
+			ID3D11Buffer*	idxBuf	インデックスバッファ
+			*/
 			void RenderContext::SetIndexBuffer(Microsoft::WRL::ComPtr<ID3D11Buffer> _idxBuf)
 			{
 				graphics::Graphics::GetInstance().GetDeviceContext()->IASetIndexBuffer(_idxBuf.Get(), DXGI_FORMAT_R32_UINT, 0);
 			}
-
-			///*
-			//[関数概要]
-			//頂点バッファを設定する
-
-			//[引数]
-			//ID3D11Buffer*	vtxBuf	頂点バッファ
-			//*/
-			//void RenderContext::SetVertexBuffer(ID3D11Buffer* vtxBuf, UINT stride)
-			//{
-			//	UINT offset = 0;
-			//	g_graphics->GetContext()->IASetVertexBuffers(0, 1, &vtxBuf, &stride, &offset);
-			//}
-
-			///*
-			//[関数概要]
-			//インデックスバッファを設定する
-
-			//[引数]
-			//ID3D11Buffer*	idxBuf	インデックスバッファ
-			//*/
-			//void RenderContext::SetIndexBuffer(ID3D11Buffer* idxBuf)
-			//{
-			//	g_graphics->GetContext()->IASetIndexBuffer(idxBuf, DXGI_FORMAT_R32_UINT, 0);
-			//}
-
 
 			/*
 			[関数概要]
@@ -291,6 +279,7 @@ namespace NextLevel
 						DirectX::XMLoadFloat4x4(worldMat)
 					)
 				);
+
 				graphics::Graphics::GetInstance().GetDeviceContext()->UpdateSubresource(m_pConstantBuffers[0].Get(), 0, NULL, &world, 0, 0);
 			}
 
@@ -348,17 +337,16 @@ namespace NextLevel
 				{
 				case resource::ShaderData::enVertex:
 				{
-					graphics::Graphics::GetInstance().GetDeviceContext()->VSSetShaderResources(_slot, 1, &m_pShaderResources[_slot]);
+					graphics::Graphics::GetInstance().GetDeviceContext()->VSSetShaderResources(_slot, 1, m_pShaderResources[_slot].GetAddressOf());
 					break;
 				}
 				case resource::ShaderData::enPixel:
 				{
-					graphics::Graphics::GetInstance().GetDeviceContext()->PSSetShaderResources(_slot, 1, &m_pShaderResources[_slot]);
+					graphics::Graphics::GetInstance().GetDeviceContext()->PSSetShaderResources(_slot, 1, m_pShaderResources[_slot].GetAddressOf());
 					break;
 				}
 				}
 			}
-
 
 			/*
 			[関数概要]

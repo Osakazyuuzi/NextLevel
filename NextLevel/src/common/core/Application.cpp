@@ -17,6 +17,8 @@
 #include "third_party/ImGui/imgui_impl_dx11.h"
 #include "third_party/ImGui/imgui_impl_win32.h"
 
+#include "src/engine/input/windows/Input.h"
+
 #include <timeapi.h>
 #pragma comment(lib, "winmm.lib")
 
@@ -46,6 +48,8 @@ namespace NextLevel
 		// モデルマネージャーのセーブデータ読み込み
 		resource::ModelManager::GetInstance().LoadFromJson();
 
+		// 入力の初期化
+		InitInput();
 
 		// 分解能
 		timeBeginPeriod(1);
@@ -54,6 +58,14 @@ namespace NextLevel
 	void Application::Uninit()
 	{
 		timeEndPeriod(1);
+
+		// シェーダーマネージャーのセーブデータ読み込み
+		resource::ShaderManager::GetInstance().SaveToJson();
+		// マテリアルマネージャーのセーブデータ読み込み
+		resource::MaterialManager::GetInstance().SaveToJson();
+		// モデルマネージャーのセーブデータ読み込み
+		resource::ModelManager::GetInstance().SaveToJson();
+
 		EditorManager::GetInstance().Shutdown();
 		graphics::Graphics::GetInstance().Shutdown();
 	}
@@ -88,10 +100,13 @@ namespace NextLevel
 	*/
 	void Application::DoFrame(float _deltaTime)
 	{
+		// 入力の更新
+		UpdateInput();
+		
 		graphics::Graphics::GetInstance().BeginRender(
-			150.0f / 255.0f, 
-			200.0f / 255.0f, 
-			180.0f / 255.0f);
+			28.0f / 255.0f, 
+			36.0f / 255.0f, 
+			45.0f / 255.0f);
 		EditorManager::GetInstance().BeginRender();
 
 		ecs::WorldManager::GetInstance().Update(_deltaTime);

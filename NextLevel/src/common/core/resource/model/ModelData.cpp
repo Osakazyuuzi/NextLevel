@@ -118,8 +118,7 @@ namespace NextLevel
 			// ファイルが存在するか確認
 			struct stat buffer;
 			if (stat(FileName.c_str(), &buffer) != 0) {
-				// ファイルが存在しない場合
-				return false;
+				std::abort();
 			}
 
 			m_fileName = FileName;

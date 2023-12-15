@@ -75,7 +75,7 @@ namespace NextLevel
 				std::shared_ptr<TextureData> newTexture
 					= std::make_shared<TextureData>();
 				if (FAILED(newTexture->Create(_fileName.c_str())))
-					return {};
+					return -1;
 
 				int newId = m_nextId;
 				m_idList[_fileName.c_str()] = newId;

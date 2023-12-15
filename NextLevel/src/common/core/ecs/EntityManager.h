@@ -161,8 +161,8 @@ namespace NextLevel
 
 				const std::uint32_t entityIndex = utils::GetIndex(_entity.m_Identifier);
 				EntityInfo& entityInfo = m_vEntities[entityIndex].second.first;
-				Chunk* chunk = m_pWorld->m_ChunkList[entityInfo.first];
-				return chunk->GetComponentList<CompT>()[entityInfo.second];
+				Chunk* chunk = &m_pWorld->m_ChunkList[entityInfo.first];
+				return &chunk->GetComponentList<CompT>()[entityInfo.second];
 			}
 
 			/**
