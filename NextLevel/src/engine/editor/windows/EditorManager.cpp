@@ -17,10 +17,6 @@ namespace NextLevel
 	*/
 	void EditorManager::Startup(HWND _hWnd)
 	{
-		ecs::WorldManager::GetInstance().CreateWorld();
-		ecs::WorldManager::GetInstance().CreateWorld();
-		ecs::WorldManager::GetInstance().CreateWorld();
-
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO();

@@ -60,9 +60,9 @@ namespace NextLevel
 
 	private:
 		bool m_bMaster;
-		bool m_bSceneGraph;
-		bool m_bHierarchy;
-		bool m_bInspector;
+		bool m_bSceneGraph = true;
+		bool m_bHierarchy = true;
+		bool m_bInspector = true;
 		bool m_bConsole;
 		bool m_bAssets;
 		bool m_bDebug = true;
