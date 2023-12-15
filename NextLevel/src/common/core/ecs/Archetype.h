@@ -9,6 +9,8 @@
 #include "Utils.h"
 #include "../utils/TypeInfo.h"
 
+#include "src/common/core/ecs/component/CTransform.h"
+
 namespace NextLevel
 {
 	namespace ecs

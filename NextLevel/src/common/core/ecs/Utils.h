@@ -1,6 +1,9 @@
 #ifndef ___SRC_COMMON_CORE_ECS_UTILS_H___
 #define ___SRC_COMMON_CORE_ECS_UTILS_H___
 
+#include <cstdint>  // intånìù
+#include <cstdlib>  // std::size_t
+
 namespace NextLevel
 {
     namespace ecs
