@@ -28,6 +28,13 @@ namespace NextLevel
 			class SMeshRenderer : public SystemBase {
 			public:
 				/**
+				* @brief コンストラクタ。
+				*/
+				SMeshRenderer(World* _pWorld)
+					: SystemBase(_pWorld)
+				{}
+
+				/**
 				* @brief 初期化処理をします。
 				*/
 				void Init() override;

@@ -144,6 +144,7 @@
     <ClInclude Include="src\common\core\ecs\component\CCamera.h" />
     <ClInclude Include="src\common\core\ecs\component\CMeshRenderer.h" />
     <ClInclude Include="src\common\core\ecs\component\CTransform.h" />
+    <ClInclude Include="src\common\core\ecs\system\SBindCamera.h" />
     <ClInclude Include="src\common\core\ecs\system\SMeshRenderer.h" />
     <ClInclude Include="src\common\core\ecs\WorldManager.h" />
     <ClInclude Include="src\common\core\resource\model\ModelManager.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="third_party\ImGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\common\core\ecs\system\SBindCamera.cpp" />
     <ClCompile Include="src\common\core\ecs\system\SMeshRenderer.cpp" />
     <ClCompile Include="src\common\core\resource\material\MaterialManager.cpp" />
     <ClCompile Include="src\common\core\resource\model\ModelData.cpp" />

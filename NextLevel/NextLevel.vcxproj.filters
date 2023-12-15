@@ -137,6 +137,7 @@
     <ClInclude Include="src\common\core\utils\DXOperator.h" />
     <ClInclude Include="src\common\core\ecs\system\SMeshRenderer.h" />
     <ClInclude Include="src\common\core\resource\model\ModelManager.h" />
+    <ClInclude Include="src\common\core\ecs\system\SBindCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\core\Application.cpp">
@@ -202,6 +203,7 @@
     <ClCompile Include="src\common\core\resource\shader\ShaderManager.cpp" />
     <ClCompile Include="src\common\core\resource\material\MaterialManager.cpp" />
     <ClCompile Include="src\common\core\resource\model\ModelManager.cpp" />
+    <ClCompile Include="src\common\core\ecs\system\SBindCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="hlsl\common\Common.hlsli" />
